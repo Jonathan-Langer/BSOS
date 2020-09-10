@@ -16,5 +16,16 @@ namespace BSOS.Models
         public string Manufacturer { get; set; }
         public string Importer { get; set; }
         public string Color { get; set; }
+        public string Gender
+        {
+            get { return this.Gender; }
+            set
+            {
+                if (value == "Men" || value == "Women" || value == "Children")
+                    Gender = value;
+                else
+                    Gender = "Unisex";
+            }
+        }
     }
 }
