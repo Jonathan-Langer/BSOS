@@ -13,7 +13,7 @@ namespace BSOS.Models
         [Display(Name ="Order Date")]
         public DateTime OrderDate { get; set; }
         [Display(Name ="Selected Product")]
-        public Product* SelectedProduct { get; set; }
+        public Product SelectedProduct { get; set; }
         public Client client { get; set; }
     }
 }
