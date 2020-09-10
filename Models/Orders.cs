@@ -15,6 +15,5 @@ namespace BSOS.Models
         [Display(Name ="Selected Product")]
         public ICollection<Product> SelectedProduct { get; set; }
         public Client client { get; set; }
-
     }
 }
