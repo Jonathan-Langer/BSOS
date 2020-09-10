@@ -14,6 +14,6 @@ namespace BSOS.Models
         public DateTime OrderDate { get; set; }
         [Display(Name ="Selected Product")]
         public ICollection<Product> SelectedProduct { get; set; }
-        public Client client { get; set; }
+        public Customer Customer { get; set; }
     }
 }
