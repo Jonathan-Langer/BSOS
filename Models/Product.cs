@@ -19,24 +19,24 @@ namespace BSOS.Models
         public double Price { get; set; }
         
         [Required]
-        public ICollection<string> Sizes { get; set; }
+        public string Size { get; set; }
         public string Brand { get; set; } //The Manufacturer of the product
         public string Color { get; set; }
 
         [Required]
-        public string Gender
-        {
-            get { return this.Gender; }
-            set
-            {
-                if (value == "Men" || value == "Women" || value == "Children")
-                    Gender = value;
-                else
-                    Gender = "Unisex";
-            }
-        }
+        public string Gender { get; set; }
+        //{
+        //    get { return this.Gender; }
+        //    set
+        //    {
+        //        if (value == "Men" || value == "Women" || value == "Children")
+        //            Gender = value;
+        //        else
+        //            Gender = "Unisex";
+        //    }
+        //}
 
-        [Required]
-        public ICollection<Order> Orders { get; set; }
+        //[Required]
+        //public ICollection<Order> Orders { get; set; }
     }
 }
