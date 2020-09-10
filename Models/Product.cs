@@ -12,7 +12,8 @@ namespace BSOS.Models
 
         [Display(Name="Name")]
         public string ProductName { get; set; }
-        public int Size { get; set; }
+        public double Price { get; set; }
+        public string Size { get; set; }
         public string Manufacturer { get; set; }
         public string Importer { get; set; }
         public string Color { get; set; }
