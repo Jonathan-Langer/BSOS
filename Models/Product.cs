@@ -9,13 +9,21 @@ namespace BSOS.Models
     public class Product
     {
         public int ProductId { get; set; }
+
+        [Required]
         [Display(Name="Name")]
         public string ProductName { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
-        public string Size { get; set; }
-        public string Manufacturer { get; set; }
-        public string Importer { get; set; }
+        
+        [Required]
+        public ICollection<string> Sizes { get; set; }
+        public string Brand { get; set; } //The Manufacturer of the product
         public string Color { get; set; }
+
+        [Required]
         public string Gender
         {
             get { return this.Gender; }
@@ -27,5 +35,8 @@ namespace BSOS.Models
                     Gender = "Unisex";
             }
         }
+
+        [Required]
+        public ICollection<Order> Orders { get; set; }
     }
 }

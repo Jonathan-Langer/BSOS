@@ -7,13 +7,19 @@ using System.Threading.Tasks;
 
 namespace BSOS.Models
 {
-    public class Orders
+    public class Order
     {
         public int OrderID { get; set; }
+
+        [Required]
         [Display(Name ="Order Date")]
         public DateTime OrderDate { get; set; }
+
+        [Required]
         [Display(Name ="Selected Product")]
         public ICollection<Product> SelectedProduct { get; set; }
+
+        [Required]
         public Customer Customer { get; set; }
     }
 }
