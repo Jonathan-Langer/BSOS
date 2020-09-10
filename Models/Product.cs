@@ -9,7 +9,6 @@ namespace BSOS.Models
     public class Product
     {
         public int ProductId { get; set; }
-
         [Display(Name="Name")]
         public string ProductName { get; set; }
         public double Price { get; set; }
