@@ -13,8 +13,6 @@ namespace BSOS.Models
         {
 
         }
-
-
         public int Id { get; set; }
 
         [StringLength(20)]
