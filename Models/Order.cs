@@ -15,11 +15,8 @@ namespace BSOS.Models
         [Display(Name ="Order Date")]
         public DateTime OrderDate { get; set; }
 
-        [Required]
-        [Display(Name ="Selected Product")]
-        public ICollection<Product> SelectedProduct { get; set; }
-
-        [Required]
+        //[Required]
+        public ICollection<ProductOrder> ProductOrders { get; set; }
         public Customer Customer { get; set; }
     }
 }

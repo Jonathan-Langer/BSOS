@@ -53,7 +53,6 @@ namespace BSOS.Models
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
-        [Required]
         public ICollection<Order> Orders  { get; set; }
 
     }

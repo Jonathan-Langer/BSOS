@@ -34,9 +34,8 @@ namespace BSOS.Models
         //        else
         //            Gender = "Unisex";
         //    }
-        //}
-
-        //[Required]
-        //public ICollection<Order> Orders { get; set; }
+        //
+       
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }
