@@ -25,18 +25,6 @@ namespace BSOS.Models
 
         [Required]
         public string Gender { get; set; }
-        //{
-        //    get { return this.Gender; }
-        //    set
-        //    {
-        //        if (value == "Men" || value == "Women" || value == "Children")
-        //            Gender = value;
-        //        else
-        //            Gender = "Unisex";
-        //    }
-        //}
-
-        //[Required]
-        //public ICollection<Order> Orders { get; set; }
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }
