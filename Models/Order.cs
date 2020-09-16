@@ -15,8 +15,13 @@ namespace BSOS.Models
         [Display(Name ="Order Date")]
         public DateTime OrderDate { get; set; }
 
-        //[Required]
-        public ICollection<ProductOrder> ProductOrders { get; set; }
+        [Display(Name ="Total Price")]
+        public double TotalPrice { get; set; }
+        public ICollection<ProductOrder> ProductOrders { get; set; } //M2M
         public Customer Customer { get; set; }
+
+        [Display(Name ="Customer Id")]
+        public int CustomerId { get; set; }
+        
     }
 }

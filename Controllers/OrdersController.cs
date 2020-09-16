@@ -34,6 +34,7 @@ namespace BSOS.Controllers
             }
 
             var order = await _context.Orders
+                .Include(c => c.Customer)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
@@ -46,6 +47,8 @@ namespace BSOS.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address");
+            ViewBag.OrderDate = DateTime.Now;
             return View();
         }
 
@@ -54,14 +57,17 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,OrderDate")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order, int CustomerId)
         {
             if (ModelState.IsValid)
             {
+                order.Customer = _context.Customers.First(c => c.Id == CustomerId);
+                order.OrderDate = DateTime.Now;
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address", order.CustomerId);
             return View(order);
         }
 
@@ -78,6 +84,7 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address", order.CustomerId);
             return View(order);
         }
 
@@ -86,7 +93,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,OrderDate")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order)
         {
             if (id != order.OrderID)
             {
@@ -97,6 +104,7 @@ namespace BSOS.Controllers
             {
                 try
                 {
+                    order.OrderDate = DateTime.Now;
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
@@ -113,6 +121,7 @@ namespace BSOS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address", order.CustomerId);
             return View(order);
         }
 
