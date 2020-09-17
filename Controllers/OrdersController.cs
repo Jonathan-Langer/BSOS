@@ -35,6 +35,7 @@ namespace BSOS.Controllers
 
             var order = await _context.Orders
                 .Include(c => c.Customer)
+                .Include(po => po.ProductOrders).ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {
@@ -45,9 +46,10 @@ namespace BSOS.Controllers
         }
 
         // GET: Orders/Create
-        public IActionResult Create()
+        public IActionResult Create(int? CustomerId)
         {
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address");
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
+            ViewData["IdCustomer"] = CustomerId; 
             ViewBag.OrderDate = DateTime.Now;
             return View();
         }
@@ -57,17 +59,26 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order, int CustomerId)
+        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order, int CustomerId, int[] ProductId)
         {
             if (ModelState.IsValid)
             {
+                //order.TotalPrice = 0;
+                //foreach (var pro in order.ProductOrders)
+                //{
+                //    order.TotalPrice = pro.Product.Price + order.TotalPrice;
+                //}
+                order.ProductOrders = new List<ProductOrder>();
+                foreach (var id in ProductId)
+                {
+                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID });
+                }
                 order.Customer = _context.Customers.First(c => c.Id == CustomerId);
                 order.OrderDate = DateTime.Now;
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address", order.CustomerId);
             return View(order);
         }
 
@@ -78,13 +89,12 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
             var order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
-            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Address", order.CustomerId);
             return View(order);
         }
 
@@ -93,7 +103,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order, int[] ProductId)
         {
             if (id != order.OrderID)
             {
@@ -104,6 +114,11 @@ namespace BSOS.Controllers
             {
                 try
                 {
+                    order.ProductOrders = new List<ProductOrder>();
+                    foreach (var idPro in ProductId)
+                    {
+                        order.ProductOrders.Add(new ProductOrder() { ProductId = idPro, OrderId = order.OrderID });
+                    }
                     order.OrderDate = DateTime.Now;
                     _context.Update(order);
                     await _context.SaveChangesAsync();
@@ -133,7 +148,8 @@ namespace BSOS.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders
+            var order = await _context.Orders.Include(c => c.Customer)
+                .Include(po => po.ProductOrders).ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
             {

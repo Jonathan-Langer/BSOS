@@ -82,7 +82,39 @@
         </tr>
     </tbody>
 </table>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ProductOrders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
