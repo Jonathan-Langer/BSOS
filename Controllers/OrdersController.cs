@@ -59,21 +59,21 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,TotalPrice,CustomerId")] Order order, int CustomerId, int[] ProductId)
+        public async Task<IActionResult> Create([Bind("OrderID,OrderDate,CustomerId")] Order order, int CustomerId, int[] ProductId)
         {
             if (ModelState.IsValid)
             {
-                //order.TotalPrice = 0;
-                //foreach (var pro in order.ProductOrders)
-                //{
-                //    order.TotalPrice = pro.Product.Price + order.TotalPrice;
-                //}
                 order.ProductOrders = new List<ProductOrder>();
                 foreach (var id in ProductId)
                 {
-                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID });
+                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id),Order=order });
                 }
                 order.Customer = _context.Customers.First(c => c.Id == CustomerId);
+                order.TotalPrice = 0;
+                foreach (var pro in order.ProductOrders)
+                {
+                    order.TotalPrice += pro.Product.Price;
+                }
                 order.OrderDate = DateTime.Now;
                 _context.Add(order);
                 await _context.SaveChangesAsync();
@@ -117,9 +117,17 @@ namespace BSOS.Controllers
                     order.ProductOrders = new List<ProductOrder>();
                     foreach (var idPro in ProductId)
                     {
-                        order.ProductOrders.Add(new ProductOrder() { ProductId = idPro, OrderId = order.OrderID });
+                        order.ProductOrders.Add(new ProductOrder() { ProductId = idPro, OrderId = order.OrderID, Product = _context.Products.Find(idPro), Order = order });
+                    }
+                    foreach (var po in order.ProductOrders)
+                    {
+                        _context.ProductOrder.AddRange(po);
                     }
                     order.OrderDate = DateTime.Now;
+                    foreach (var pro in order.ProductOrders)
+                    {
+                        order.TotalPrice += pro.Product.Price;
+                    }
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
