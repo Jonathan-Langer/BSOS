@@ -33,7 +33,7 @@ namespace BSOS.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
+            var customer = await _context.Customers.Include(o => o.Orders)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {

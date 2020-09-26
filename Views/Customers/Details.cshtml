@@ -78,7 +78,46 @@
         </dd>
     </dl>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().OrderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders.First().TotalPrice)
+            </th>
+            <th>
+               Order Details
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <a href="/Orders/Details?id=@Html.DisplayFor(modelItem => item.OrderID)">View Order Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
 <div>
+    <a href="/Orders/Create?CustomerId=@Model.Id">Make a new order</a> |
+    @*<a asp-controller="Orders" asp-action="Create" asp-route-id="@Model.Id">Make a new order</a> |*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
