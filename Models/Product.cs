@@ -26,5 +26,6 @@ namespace BSOS.Models
         [Required]
         public string Gender { get; set; }
         public ICollection<ProductOrder> ProductOrders { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

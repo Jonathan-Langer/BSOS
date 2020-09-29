@@ -8,11 +8,6 @@ namespace BSOS.Models
 {
     public class Customer
     {
-
-        public Customer()
-        {
-
-        }
         public int Id { get; set; }
 
         [StringLength(20)]
@@ -55,6 +50,5 @@ namespace BSOS.Models
         public DateTime Birthday { get; set; }
 
         public ICollection<Order> Orders  { get; set; }
-
     }
 }

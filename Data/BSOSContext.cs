@@ -28,5 +28,6 @@ namespace BSOS.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ProductOrder> ProductOrder { get; set; }
+        public DbSet<BSOS.Models.Comment> Comment { get; set; }
     }
 }
