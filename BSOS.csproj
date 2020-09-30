@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\bootstrap.map" />
+    <None Include="wwwroot\css\main.css.map" />
+    <None Include="wwwroot\css\main.map" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 
