@@ -48,7 +48,52 @@
         </dd>
     </dl>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().Body)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().SentBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().Posted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments.First().IP)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Comments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SentBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Posted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IP)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
+    <a href="/Comments/Create?productID=@Model.ProductId">Leave a new comment</a> |
     <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

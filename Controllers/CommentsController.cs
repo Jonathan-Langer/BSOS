@@ -44,8 +44,12 @@ namespace BSOS.Controllers
         }
 
         // GET: Comments/Create
-        public IActionResult Create()
+        public IActionResult Create(int? productID)
         {
+            ViewData["productID"] = productID;
+            ViewBag.Date = DateTime.Now;
+            ViewBag.IP = HttpContext.Connection.RemoteIpAddress;
+            ViewBag.Products = new SelectList(_context.Products.ToList(),"ProductId","ProductName");
             return View();
         }
 
@@ -54,10 +58,13 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment,int ProductId)
         {
             if (ModelState.IsValid)
             {
+                comment.Posted = DateTime.Now;
+                comment.IP = HttpContext.Connection.RemoteIpAddress.ToString();
+                comment.Product = _context.Products.First(p => p.ProductId == ProductId);
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +93,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Posted")] Comment comment)
         {
             if (id != comment.Id)
             {
@@ -97,6 +104,7 @@ namespace BSOS.Controllers
             {
                 try
                 {
+                    comment.Posted = DateTime.Now;
                     _context.Update(comment);
                     await _context.SaveChangesAsync();
                 }

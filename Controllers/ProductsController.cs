@@ -33,7 +33,7 @@ namespace BSOS.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Products.Include(p=>p.Comments)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {

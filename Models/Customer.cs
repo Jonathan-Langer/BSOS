@@ -13,17 +13,17 @@ namespace BSOS.Models
         [StringLength(20)]
         [Display(Name = "First Name")]
         [Required]
-        public string FirstName{get; set;}
+        public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
         [StringLength(20)]
-        public string LastName{ get; set; }
+        public string LastName { get; set; }
         public string Gender { get; set; }
 
         [Display(Name = "Phone")]
         [RegularExpression(@"^[0-9\s]*$")]
-        public string PhoneNumber{ get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
         //[RegularExpression(@"^[@A-Za-z0-9\s]*$")]
@@ -38,7 +38,7 @@ namespace BSOS.Models
         [Required]
         public string City { get; set; }
 
-        [Display(Name="Zip Code")]
+        [Display(Name = "Zip Code")]
         [RegularExpression(@"^[0-9\s]*$")]
         [StringLength(7)]
         public string ZipCode { get; set; }
@@ -49,6 +49,6 @@ namespace BSOS.Models
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
-        public ICollection<Order> Orders  { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
