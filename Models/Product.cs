@@ -11,13 +11,13 @@ namespace BSOS.Models
         public int ProductId { get; set; }
 
         [Required]
-        [Display(Name="Name")]
+        [Display(Name = "Name")]
         public string ProductName { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
-        
+
         [Required]
         public string Size { get; set; }
         public string Brand { get; set; } //The Manufacturer of the product

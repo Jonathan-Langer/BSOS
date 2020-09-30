@@ -49,7 +49,7 @@ namespace BSOS.Controllers
             ViewData["productID"] = productID;
             ViewBag.Date = DateTime.Now;
             ViewBag.IP = HttpContext.Connection.RemoteIpAddress;
-            ViewBag.Products = new SelectList(_context.Products.ToList(),"ProductId","ProductName");
+            ViewBag.Products = new SelectList(_context.Products.ToList(), "ProductId", "ProductName");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment,int ProductId)
+        public async Task<IActionResult> Create([Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment, int ProductId)
         {
             if (ModelState.IsValid)
             {

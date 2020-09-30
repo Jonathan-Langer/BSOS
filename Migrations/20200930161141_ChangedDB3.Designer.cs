@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BSOS.Migrations
 {
     [DbContext(typeof(BSOSContext))]
-    [Migration("20200929153130_ChangedDB3")]
+    [Migration("20200930161141_ChangedDB3")]
     partial class ChangedDB3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

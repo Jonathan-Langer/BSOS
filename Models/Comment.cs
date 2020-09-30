@@ -9,15 +9,15 @@ namespace BSOS.Models
     public class Comment
     {
         public int Id { get; set; }
-         
-        [RegularExpression(@"^[A-Za-z0-9\s]*$")]
+
+        [RegularExpression(@"^[A-Za-z0-9\s]$")]
         [StringLength(50)]
         public string Title { get; set; }
-        
-        [RegularExpression(@"^[A-Za-z0-9\s]*$")]
+
+        [RegularExpression(@"^[A-Za-z0-9\s]$")]
         [StringLength(200)]
         public string Body { get; set; }
-        
+
         [RegularExpression(@"^[A-Za-z0-9\s]*$")]
         [StringLength(30)]
         public string SentBy { get; set; }
