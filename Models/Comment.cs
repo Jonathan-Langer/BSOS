@@ -24,5 +24,6 @@ namespace BSOS.Models
         public DateTime Posted { get; set; }
         public string IP { get; set; } //IP Adress
         public Product Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
