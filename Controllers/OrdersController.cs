@@ -24,6 +24,15 @@ namespace BSOS.Controllers
         {
             return View(await _context.Orders.ToListAsync());
         }
+        public async Task<IActionResult> Search(string orderId)
+        {
+            if (String.IsNullOrEmpty(orderId))
+            {
+                return View("Index", _context.Orders);
+            }
+            var result = from o in _context.Orders where (o.OrderID.ToString().Contains(orderId)) select o;
+            return View("Search", result);
+        }
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)

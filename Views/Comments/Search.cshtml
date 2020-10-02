@@ -1,29 +1,21 @@
 ﻿@model IEnumerable<BSOS.Models.Comment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Search";
 }
-
 <br />
 <br />
 <br />
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-action="Search" class="form-inline">
-    <div class="form-group">
-        <label class="control-label mr-2">Enter the name of the author of the message</label>
-        <input Name="sentBy" class="form-control mr-2" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Search" class="btn btn-primary" />
-    </div>
-</form>
+<br />
+<br />
+<h1>Search</h1>
+<a asp-action="Index">Customers-></a><a asp-action="Search">Search</a>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -39,12 +31,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.IP)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -61,11 +60,14 @@
                 @Html.DisplayFor(modelItem => item.IP)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

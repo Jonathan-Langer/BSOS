@@ -24,6 +24,15 @@ namespace BSOS.Controllers
         {
             return View(await _context.Comment.ToListAsync());
         }
+        public async Task<IActionResult> Search(string sentBy)
+        {
+            if (String.IsNullOrEmpty(sentBy))
+            {
+                return View("Index", _context.Comment);
+            }
+            var result = from com in _context.Comment where (com.SentBy.Contains(sentBy)) select com;
+            return View("Search", result);
+        }
 
         // GET: Comments/Details/5
         public async Task<IActionResult> Details(int? id)
