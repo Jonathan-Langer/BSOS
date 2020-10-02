@@ -144,7 +144,17 @@ namespace BSOS.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        public async Task<IActionResult> LogInPage()
+        {
+            return View();
+        }
+        public async Task<IActionResult> LogIn(string email,string password)
+        {
+            foreach (var c in _context.Customers)
+                if (c.Email.Equals(email) && c.Password.Equals(password))
+                    return View("Details", c);
+            return View("Error");//have to create view for mistakes with the log-in
+        }
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);

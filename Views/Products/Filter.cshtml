@@ -1,12 +1,32 @@
 ﻿@model IEnumerable<BSOS.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Filter";
 }
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
-
-<h1>Index</h1>
-
+<h1>Filter</h1>
+<label type="text">Brand</label>
+<ul>
+    @foreach (var pro in Model)
+    {
+        <li><a href="/Product/Filter?RequierdAttribute=Brand&AttributeValue=@pro.Brand">@pro.Brand</a></li>
+    }
+</ul>
+<label type="text">Size</label>
+<ul>
+    @foreach (var pro in Model)
+    {
+        <li><a href="/Product/Filter?RequierdAttribute=Size&AttributeValue=@pro.Size">@pro.Size</a></li>
+    }
+</ul>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -27,6 +47,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
@@ -52,6 +75,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Discription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category)

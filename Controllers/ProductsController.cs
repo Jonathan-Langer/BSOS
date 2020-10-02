@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BSOS.Data;
 using BSOS.Models;
+using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.EntityFrameworkCore.Storage;
+using SQLitePCL;
 
 namespace BSOS.Controllers
 {
@@ -80,7 +83,6 @@ namespace BSOS.Controllers
             }
             return View(product);
         }
-
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -148,6 +150,69 @@ namespace BSOS.Controllers
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
+        }
+        private IQueryable<Product> FilterByBrand(string value)
+        {
+            var result = from pro in _context.Products where (pro.Brand.Contains(value)) select pro;
+            return result;
+        }
+        private BSOSContext FilterByColor(BSOSContext? DB, string value)
+        {
+            if (DB== null)
+                DB= _context;
+            var result = from pro in DB.Products where (pro.Color.Contains(value)) select pro;
+            foreach (var pro in result)
+            {
+                if (!value.Contains(pro.Color))
+                {
+                    DB.Products.Remove(pro);
+                    DB.SaveChanges();
+                }
+            }
+            return DB;
+        }
+        private IQueryable<Product> FilterBySize(string value)
+        {
+            var result = from pro in _context.Products where (pro.Size.Contains(value)) select pro;
+            return result;
+        }
+        private BSOSContext FilterByPrice(BSOSContext? DB, double MinPrice,double MaxPrice)
+        {
+            if (DB == null)
+                DB = _context;
+            var result = from pro in DB.Products where (pro.Price>=MinPrice&&pro.Price<=MaxPrice) select pro;
+            foreach (var pro in result)
+            {
+                if (!(pro.Price >= MinPrice && pro.Price <= MaxPrice))
+                {
+                    DB.Products.Remove(pro);
+                    DB.SaveChanges();
+                }
+            }
+            return DB;
+        }
+        public async Task<IActionResult> Filter(string RequierdAttribute,string AttributeValue)
+        {
+            //var result = from p in _context.Products select p;
+            BSOSContext db = new BSOSContext();
+            switch(RequierdAttribute)
+            {
+                case "Brand":
+                    var result=FilterByBrand(AttributeValue);
+                    return View(await result.ToListAsync());
+                    break;
+                case "Color":
+                    FilterByColor(db, AttributeValue);
+                    break;
+                case "Size":
+                    result= FilterBySize(AttributeValue);
+                    return View(await result.ToListAsync());
+                    break;
+                default:
+                    break;
+                    
+            }
+            return View("Error");
         }
     }
 }
