@@ -160,45 +160,20 @@ namespace BSOS.Controllers
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
-        private IQueryable<Product> FilterByBrand(string value)
+        public async Task<IActionResult> FilterByBrand(string value)
         {
             var result = from pro in _context.Products where (pro.Brand.Contains(value)) select pro;
-            return result;
+            return View(await result.ToListAsync());
         }
-        private BSOSContext FilterByColor(BSOSContext? DB, string value)
-        {
-            if (DB== null)
-                DB= _context;
-            var result = from pro in DB.Products where (pro.Color.Contains(value)) select pro;
-            foreach (var pro in result)
-            {
-                if (!value.Contains(pro.Color))
-                {
-                    DB.Products.Remove(pro);
-                    DB.SaveChanges();
-                }
-            }
-            return DB;
+        private async Task<IActionResult> FilterByColor(string value)
+        { 
+            var result = from pro in _context.Products where (pro.Color.Contains(value)) select pro;
+            return View(await result.ToListAsync());
         }
-        private IQueryable<Product> FilterBySize(string value)
+        private async Task<IActionResult> FilterBySize(string value)
         {
             var result = from pro in _context.Products where (pro.Size.Contains(value)) select pro;
-            return result;
-        }
-        private BSOSContext FilterByPrice(BSOSContext? DB, double MinPrice,double MaxPrice)
-        {
-            if (DB == null)
-                DB = _context;
-            var result = from pro in DB.Products where (pro.Price>=MinPrice&&pro.Price<=MaxPrice) select pro;
-            foreach (var pro in result)
-            {
-                if (!(pro.Price >= MinPrice && pro.Price <= MaxPrice))
-                {
-                    DB.Products.Remove(pro);
-                    DB.SaveChanges();
-                }
-            }
-            return DB;
+            return View(await result.ToListAsync());
         }
         public async Task<IActionResult> Filter(string RequierdAttribute,string AttributeValue)
         {
@@ -207,15 +182,13 @@ namespace BSOS.Controllers
             switch(RequierdAttribute)
             {
                 case "Brand":
-                    var result=FilterByBrand(AttributeValue);
-                    return View(await result.ToListAsync());
+                    return await FilterByBrand(AttributeValue);
                     break;
                 case "Color":
                     FilterByColor(db, AttributeValue);
                     break;
                 case "Size":
-                    result= FilterBySize(AttributeValue);
-                    return View(await result.ToListAsync());
+                    
                     break;
                 default:
                     break;

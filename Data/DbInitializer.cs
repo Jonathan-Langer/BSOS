@@ -18,15 +18,15 @@ namespace BSOS.Data
             }
             var customers = new Customer[]
             {
-                new Customer{Id=18,FirstName="Shay",LastName="Horovitz",Gender="Man",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09")},
-                new Customer{Id=19,FirstName="Moshe",LastName="Dovav",Gender="Man",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14")},
-                new Customer{Id=20,FirstName="Dror",LastName="Cohen",Gender="Man",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25")}
+                new Customer{FirstName="Shay",LastName="Horovitz",Gender="Man",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09")},
+                new Customer{FirstName="Moshe",LastName="Dovav",Gender="Man",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14")},
+                new Customer{FirstName="Dror",LastName="Cohen",Gender="Man",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25")}
             };
             foreach (Customer c in customers)
             {
                 context.Customers.Add(c);
-                context.SaveChanges();
             }
+            context.SaveChanges();
             var products = new Product[]
             {
                 new Product{ProductName="Vans Old Skool",Price=120,Size="39",Brand="Vans",Color="Black&White",Discription="Vans the best for you",Category="Shoes Men Women Unisex"},
@@ -54,10 +54,10 @@ namespace BSOS.Data
             foreach (Product p in products)
             {
                 context.Products.Add(p);
-                context.SaveChanges();
             }
+            context.SaveChanges();
             //*****************************
-            
+
             //****************************
             //var orders = new Order[]
             //{
