@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace BSOS.Models
 {
     public class Order
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderID { get; set; }
 
         [Required]

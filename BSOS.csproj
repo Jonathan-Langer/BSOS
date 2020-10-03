@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20200929153130_ChangedDB3.Designer.cs" />
     <Compile Remove="Migrations\20201002165105_ChangedDB5.cs" />
     <Compile Remove="Migrations\20201002165105_ChangedDB5.Designer.cs" />
+    <Compile Remove="Migrations\20201003160632_ChangedDB5.cs" />
+    <Compile Remove="Migrations\20201003160632_ChangedDB5.Designer.cs" />
+    <Compile Remove="Migrations\20201003160844_ChangedDB6.cs" />
+    <Compile Remove="Migrations\20201003160844_ChangedDB6.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
