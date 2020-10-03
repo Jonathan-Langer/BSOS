@@ -185,10 +185,10 @@ namespace BSOS.Controllers
                     return await FilterByBrand(AttributeValue);
                     break;
                 case "Color":
-                    FilterByColor(db, AttributeValue);
+                    return await FilterByColor(AttributeValue);
                     break;
                 case "Size":
-                    
+                    return await FilterBySize(AttributeValue);
                     break;
                 default:
                     break;
