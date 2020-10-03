@@ -8,7 +8,7 @@ html,body{
 .my-nav .nav-link:hover{color: LimeGreen;}
 .fa-bars{color: white;}
 
-#home{background-image: url(img/product/p3.jpg);background-position: center center;background-attachment: fixed; background-size: cover; width: 100%; height: 100%;}
+#home{background-image: url(img/major.png);background-position: center center;background-attachment: fixed; background-size: cover; width: 100%; height: 100%;}
 
 .landing-text{
 	
