@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BSOS.Data;
 using BSOS.Models;
+using System.Web;
+using Microsoft.AspNetCore.Session;
 
 namespace BSOS.Controllers
 {
@@ -153,17 +155,18 @@ namespace BSOS.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> LogInPage()
+        public IActionResult LogIn()
         {
-            return View();
+            return View("LogInPage");
         }
-        public async Task<IActionResult> LogIn(string email,string password)
+        public IActionResult Validate(string email, string password)
         {
             foreach (var c in _context.Customers)
                 if (c.Email.Equals(email) && c.Password.Equals(password))
                     return View("Details", c);
             return View("Error");//have to create view for mistakes with the log-in
         }
+
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);

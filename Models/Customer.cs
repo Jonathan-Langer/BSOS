@@ -26,10 +26,12 @@ namespace BSOS.Models
         public string PhoneNumber { get; set; }
 
         [Required]
-        //[RegularExpression(@"^[@A-Za-z0-9\s]*$")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
+
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "This field is required.")]
         public string Password { get; set; }
 
         [Required]
@@ -50,6 +52,10 @@ namespace BSOS.Models
         public DateTime Birthday { get; set; }
 
         public ICollection<Order> Orders { get; set; }
-        public Order ShoppingCart { get; set; }
+
+        //[Display(Name = "User Name")]
+        //[Required(ErrorMessage = "This field is required.")]
+        //public string UserName { get; set; }
+        //public string LoginErrorMessage { get; set; }
     }
 }
