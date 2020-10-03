@@ -53,9 +53,5 @@ namespace BSOS.Models
 
         public ICollection<Order> Orders { get; set; }
 
-        //[Display(Name = "User Name")]
-        //[Required(ErrorMessage = "This field is required.")]
-        //public string UserName { get; set; }
-        //public string LoginErrorMessage { get; set; }
     }
 }
