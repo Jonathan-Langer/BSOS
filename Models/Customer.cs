@@ -50,5 +50,6 @@ namespace BSOS.Models
         public DateTime Birthday { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+        public Order ShoppingCart { get; set; }
     }
 }
