@@ -167,7 +167,6 @@ namespace BSOS.Controllers
             return View("Error");//have to create view for mistakes with the log-in
         }
 
-
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);
