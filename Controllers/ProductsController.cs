@@ -60,7 +60,6 @@ namespace BSOS.Controllers
         {
             return View();
         }
-
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -160,41 +159,25 @@ namespace BSOS.Controllers
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
-        public async Task<IActionResult> FilterByBrand(string value)
+
+        public async Task<IActionResult> Filter(string Brand, string Size, string Color)
         {
-            var result = from pro in _context.Products where (pro.Brand.Contains(value)) select pro;
-            return View(await result.ToListAsync());
-        }
-        private async Task<IActionResult> FilterByColor(string value)
-        { 
-            var result = from pro in _context.Products where (pro.Color.Contains(value)) select pro;
-            return View(await result.ToListAsync());
-        }
-        private async Task<IActionResult> FilterBySize(string value)
-        {
-            var result = from pro in _context.Products where (pro.Size.Contains(value)) select pro;
-            return View(await result.ToListAsync());
-        }
-        public async Task<IActionResult> Filter(string RequierdAttribute,string AttributeValue)
-        {
-            //var result = from p in _context.Products select p;
+            var result = from p in _context.Products select p;
             BSOSContext db = new BSOSContext();
-            switch(RequierdAttribute)
+            if (!(String.IsNullOrEmpty(Brand))&&Brand!="brand")
             {
-                case "Brand":
-                    return await FilterByBrand(AttributeValue);
-                    break;
-                case "Color":
-                    return await FilterByColor(AttributeValue);
-                    break;
-                case "Size":
-                    return await FilterBySize(AttributeValue);
-                    break;
-                default:
-                    break;
-                    
+                result = from pro in result where (pro.Brand.Contains(Brand)) select pro;
             }
-            return View("Error");
+            if (!String.IsNullOrEmpty(Size)&&Size!="size")
+            {
+                result = from pro in result where (pro.Color.Contains(Size)) select pro;
+            }
+            if (!String.IsNullOrEmpty(Color)&&Color!="color")
+            {
+                result = from pro in result where (pro.Size.Contains(Color)) select pro;
+            }
+            return View(await result.ToListAsync());
+
         }
     }
 }

@@ -3,30 +3,7 @@
 @{
     ViewData["Title"] = "Filter";
 }
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
 <h1>Filter</h1>
-<label type="text">Brand</label>
-<ul>
-    @foreach (var pro in Model)
-    {
-        <li><a asp-action="FilterByBrand">@pro.Brand</a></li>
-    }
-</ul>
-<label type="text">Size</label>
-<ul>
-    @foreach (var pro in Model)
-    {
-        <li><a asp-action="Filter" asp-route-RequierdAttribute="Size" asp-route-AttributeValue="@pro.Size">@pro.Size</a></li>
-    }
-</ul>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -91,3 +68,53 @@
         }
     </tbody>
 </table>
+<aside>
+    <form asp-action="Filter" asp-route-Brand="brand" asp-route-Color="color" asp-route-Size="size">
+        <section>
+            <h1>Filter</h1>
+            <br />
+            <header>
+                <h3>Brand</h3>
+            </header>
+            <ul>
+                @foreach (var p in (from pro in Model group pro.Brand by pro.Brand))
+                {
+                    <li>
+                        <input type="radio" name="brand" value="@p.Key">
+                        <label for="brand">@p.Key</label>
+                        <br>
+                    </li>
+                }
+            </ul>
+            <header>
+                <h3>Size</h3>
+            </header>
+            <ul>
+                @foreach (var p in (from pro in Model group pro.Size by pro.Size))
+                {
+                    <li>
+                        <input type="radio" name="size" value="@p.Key">
+                        <label for="size">@p.Key</label>
+                        <br>
+                    </li>
+                }
+            </ul>
+            <header>
+                <h3>Color</h3>
+            </header>
+            <ul>
+                @foreach (var p in (from pro in Model group pro.Color by pro.Color))
+                {
+                    <li>
+                        <input type="radio" name="color" value="@p.Key">
+                        <label>@p.Key</label>
+                        <br>
+                    </li>
+                }
+            </ul>
+            <footer>
+                <button type="submit" class="bg-info">Filter</button>
+            </footer>
+        </section>
+    </form>
+</aside>
