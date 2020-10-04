@@ -167,5 +167,23 @@ namespace BSOS.Controllers
         {
             return _context.Customers.Any(e => e.Id == id);
         }
+        public async Task<IActionResult> Filter(string Country, string City, string Gender)
+        {
+            var result = from c in _context.Customers select c;
+            if (!(String.IsNullOrEmpty(Country)) && City != "city")
+            {
+                result = from c in result where (c.City.Equals(City)) select c;
+            }
+            if (!String.IsNullOrEmpty(Country) && Country != "country")
+            {
+                result = from c in result where (c.Country.Equals(Country)) select c;
+            }
+            if (!String.IsNullOrEmpty(Gender) && Gender != "gender")
+            {
+                result = from c in result where (c.Gender.Equals(Gender)) select c;
+            }
+            return View(await result.ToListAsync());
+
+        }
     }
 }

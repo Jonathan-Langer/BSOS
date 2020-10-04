@@ -3,118 +3,171 @@
 @{
     ViewData["Title"] = "Filter";
 }
-<h1>Filter</h1>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Size)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<aside>
-    <form asp-action="Filter" asp-route-Brand="brand" asp-route-Color="color" asp-route-Size="size">
-        <section>
-            <h1>Filter</h1>
-            <br />
-            <header>
-                <h3>Brand</h3>
-            </header>
-            <ul>
-                @foreach (var p in (from pro in Model group pro.Brand by pro.Brand))
+<head>
+   <style>
+       #content {
+           display: table;
+       }
+
+       #mainContent {
+           display: table-cell;
+           width: 620px;
+           padding-right: 22px;
+       }
+
+       aside {
+           display: table-cell;
+           width: 300px;
+           background: url("images/sidebar_background.png") top left;
+       }
+
+
+           /*------------------------------=SIDEBAR------------------------------*/
+           aside section {
+               margin: 22px 0 0 22px;
+               padding: 11px 22px;
+               background: url("images/sidebar_section_background.png") repeat-x;
+               /* Border-radius not implemented yet */
+               -moz-border-radius: 11px;
+               -webkit-border-radius: 11px;
+           }
+
+               aside section ul {
+                   margin: 0 0 0 22px;
+                   list-style: none;
+               }
+
+                   aside section ul li a {
+                       display: block;
+                       text-decoration: none;
+                       color: #000;
+                   }
+
+                       aside section ul li a:hover {
+                           text-decoration: underline;
+                       }
+   </style>
+</head>
+<div id="content">
+    <aside>
+        <form asp-action="Filter" asp-route-Brand="brand" asp-route-Color="color" asp-route-Size="size">
+            <section>
+                <h1>Filter</h1>
+                <br />
+                <header>
+                    <h5>Brand</h5>
+                </header>
+                <ul>
+                    @foreach (var p in (from pro in Model group pro.Brand by pro.Brand))
+                    {
+                        <li>
+                            <input type="radio" name="brand" value="@p.Key">
+                            <label for="brand">@p.Key</label>
+                            <br>
+                        </li>
+                    }
+                </ul>
+            </section>
+            <section>
+                <header>
+                    <h5>Size</h5>
+                </header>
+                <ul>
+                    @foreach (var p in (from pro in Model group pro.Size by pro.Size))
+                    {
+                        <li>
+                            <input type="radio" name="size" value="@p.Key">
+                            <label for="size">@p.Key</label>
+                            <br>
+                        </li>
+                    }
+                </ul>
+            </section>
+            <section>
+                <header>
+                    <h5>Color</h5>
+                </header>
+                <ul>
+                    @foreach (var p in (from pro in Model group pro.Color by pro.Color))
+                    {
+                        <li>
+                            <input type="radio" name="color" value="@p.Key">
+                            <label>@p.Key</label>
+                            <br>
+                        </li>
+                    }
+                </ul>
+                <footer>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <br />
+                    <br />
+                    <button type="submit" class="btn btn-danger" asp-route-Brand="brand" asp-route-Size="size" asp-route-Color="color">Cancel</button>
+                </footer>
+            </section>
+        </form>
+    </aside>
+    <div id="mainContent">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Size)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Color)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Discription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <li>
-                        <input type="radio" name="brand" value="@p.Key">
-                        <label for="brand">@p.Key</label>
-                        <br>
-                    </li>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        </td>
+                    </tr>
                 }
-            </ul>
-            <header>
-                <h3>Size</h3>
-            </header>
-            <ul>
-                @foreach (var p in (from pro in Model group pro.Size by pro.Size))
-                {
-                    <li>
-                        <input type="radio" name="size" value="@p.Key">
-                        <label for="size">@p.Key</label>
-                        <br>
-                    </li>
-                }
-            </ul>
-            <header>
-                <h3>Color</h3>
-            </header>
-            <ul>
-                @foreach (var p in (from pro in Model group pro.Color by pro.Color))
-                {
-                    <li>
-                        <input type="radio" name="color" value="@p.Key">
-                        <label>@p.Key</label>
-                        <br>
-                    </li>
-                }
-            </ul>
-            <footer>
-                <button type="submit" class="bg-info">Filter</button>
-            </footer>
-        </section>
-    </form>
-</aside>
+            </tbody>
+        </table>
+    </div>
+</div>
+
