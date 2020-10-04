@@ -23,6 +23,10 @@ namespace BSOS.Controllers
             return View();
         }
 
+        public IActionResult LogIn()
+        {
+            return View("Login");
+        }
         public IActionResult Privacy()
         {
             return View();

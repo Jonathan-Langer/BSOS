@@ -1,25 +1,28 @@
-﻿@model IEnumerable<BSOS.Models.Customer>
+﻿@*@model IEnumerable<BSOS.Models.Customer>*@
 
 @{
     ViewData["Title"] = "Log In";
 }
-<br />
-<br />
-<br />
-<br />
+@*<br />
+    <br />
+    <br />
+    <br />
 
-<h1>Log In</h1>
-<form asp-action="Validate" asp-route-email=Email asp-route-password=Password>
-    <div><h3>please enter your deatails to log in</h3></div>
-    <div><input name="Email" type="text" placeholder="Email" /></div>
-    <div><input name="Password" type="password" placeholder="Password" /></div>
-    <button type="submit" class="btn btn-info">Submit</button>
-</form>
-<script>
-    function TransferParameter()
-    {
-        console.log(document.getElementById("Email"));
-        console.log(document.getElementById("Password")); 
-        
-    }
-</script>
+    <h1>Log In</h1>
+    <form asp-action="Validate" asp-route-email=Email asp-route-password=Password>
+        <div><h3>please enter your deatails to log in</h3></div>
+        <div><input name="Email" type="text" placeholder="Email" /></div>
+        <div><input name="Password" type="password" placeholder="Password" /></div>
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+    <script>
+        function TransferParameter()
+        {
+            console.log(document.getElementById("Email"));
+            console.log(document.getElementById("Password"));
+
+        }
+    </script>*@
+
+
+
