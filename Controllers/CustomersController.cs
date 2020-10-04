@@ -141,7 +141,6 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-
             return View(customer);
         }
 
@@ -183,7 +182,12 @@ namespace BSOS.Controllers
                 result = from c in result where (c.Gender.Equals(Gender)) select c;
             }
             return View(await result.ToListAsync());
-
+        }
+        public async Task<IActionResult> CountOrders()
+        {
+            var count = from o in _context.Orders group o.CustomerId by o.CustomerId into CustomersGroup select CustomersGroup.Key;
+            var result = from c in _context.Customers select c;
+            return View(await count.ToListAsync());
         }
     }
 }
