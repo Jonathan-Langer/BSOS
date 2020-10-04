@@ -22,7 +22,10 @@ namespace BSOS.Controllers
         {
             return View();
         }
-
+        public IActionResult LogIn()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

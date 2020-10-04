@@ -155,10 +155,6 @@ namespace BSOS.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult LogIn()
-        {
-            return View("LogInPage");
-        }
         public IActionResult Validate(string email, string password)
         {
             foreach (var c in _context.Customers)
