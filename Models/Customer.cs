@@ -9,7 +9,6 @@ namespace BSOS.Models
 {
     public class Customer
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [StringLength(20)]
