@@ -17,14 +17,14 @@
 <ul>
     @foreach (var pro in Model)
     {
-        <li><a href="/Product/Filter?RequierdAttribute=Brand&AttributeValue=@pro.Brand">@pro.Brand</a></li>
+        <li><a asp-action="FilterByBrand">@pro.Brand</a></li>
     }
 </ul>
 <label type="text">Size</label>
 <ul>
     @foreach (var pro in Model)
     {
-        <li><a href="/Product/Filter?RequierdAttribute=Size&AttributeValue=@pro.Size">@pro.Size</a></li>
+        <li><a asp-action="Filter" asp-route-RequierdAttribute="Size" asp-route-AttributeValue="@pro.Size">@pro.Size</a></li>
     }
 </ul>
 <p>

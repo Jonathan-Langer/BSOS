@@ -9,7 +9,7 @@ namespace BSOS.Models
 {
     public class Product
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }
 
         [Required]
