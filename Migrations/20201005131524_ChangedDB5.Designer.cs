@@ -4,14 +4,16 @@ using BSOS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BSOS.Migrations
 {
     [DbContext(typeof(BSOSContext))]
-    partial class BSOSContextModelSnapshot : ModelSnapshot
+    [Migration("20201005131524_ChangedDB5")]
+    partial class ChangedDB5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +165,6 @@ namespace BSOS.Migrations
 
                     b.Property<string>("Size")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Urlimage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
