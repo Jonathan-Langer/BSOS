@@ -185,14 +185,7 @@ namespace BSOS.Controllers
         }
         public async Task<IActionResult> CountOrders()
         {
-            var count =
-                from c in _context.Customers
-                join o in _context.Orders
-                on c.Id equals o.CustomerId
-                group o by c into g
-                let AmountOfOrders=g.Count()
-                orderby g.Count() descending
-                select new { g.Key.FirstName,g.Key.LastName, AmountOfOrders};
+            var count = _context.Orders.GroupBy(c => c.CustomerId);
             return View(await count.ToListAsync());
         }
     }
