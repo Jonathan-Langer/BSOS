@@ -21,7 +21,7 @@ namespace BSOS.Data
                 new Customer{FirstName="Shay",LastName="Horovitz",Gender="Male",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09")},
                 new Customer{FirstName="Moshe",LastName="Dovav",Gender="Male",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14")},
                 new Customer{FirstName="Dror",LastName="Cohen",Gender="Male",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25")},
-                new Customer{FirstName="Efrat",LastName="Man-Tzur",Gender="Female",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18")},
+                new Customer{FirstName="Efrat",LastName="Man-Tzur:)",Gender="Female",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18")},
                 new Customer{FirstName="Yafa",LastName="Benin",Gender="Female",PhoneNumber="0584975511",Email="YafaIsTheQueen@gmail.com",Password="1234",Country="Israel",City="Ramat Gan",ZipCode="1234567",Address="Kinor 17",Birthday=DateTime.Parse("1965-11-29")}
             };
             foreach (Customer c in customers)
@@ -35,27 +35,27 @@ namespace BSOS.Data
             }
             var products = new Product[]
             {
-                new Product{ProductName="Vans Old Skool",Price=120,Size="39",Brand="Vans",Color="Black&White",Discription="Vans the best for you",Category="Shoes Men Women Unisex"},
-                new Product{ProductName="Toms Classic",Price=140,Size="40",Brand="Toms",Color="Blue",Discription="Toms since 1972",Category="Men Shoes"},
-                new Product{ProductName="Lee Copper Classic",Price=70,Size="M",Brand="Lee Copper",Color="Black",Discription="Lee Copper since 1980",Category="Men Jeans"},
-                new Product{ProductName="Blanston Boots",Price=270,Size="41",Brand="Blanston",Color="Brown",Discription="Blanston the best for you",Category="Shoes Unisex Men Women "},
-                new Product{ProductName="Prada Dress",Price=3200,Size="M",Brand="Prada",Color="Black",Discription="Very Uniq",Category="Dress Women Prada Uniq"},
-                new Product{ProductName="Rolex watch",Price=1200,Size="No Size",Brand="Rolex",Color="Silver",Discription="Most Uniq",Category="Accesories"},
-                new Product{ProductName="Timberland Boots",Price=350,Size="42",Brand="Timberland",Color="Brown",Discription="Come To Us",Category="Shoes"},
-                new Product{ProductName="Adidas Super Star",Price=250,Size="43",Brand="Adidas",Color="Any",Discription="Be a Star",Category="Shoes"},
-                new Product{ProductName="Nike Air",Price=220,Size="41",Brand="Nike",Color="White",Discription="The Best For You",Category="Shoes"},
-                new Product{ProductName="T-Shirt",Price=40,Size="S",Brand="No Brand",Color="Black",Discription="With wolf paint",Category="T-Shirt Shirt Men"},
-                new Product{ProductName="Coat",Price=100,Size="M",Brand="No Brand",Color="Many",Discription="Ladies coat",Category="Coat Women winter"},
-                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="Colorfull",Discription="",Category="Shirt Men Children"},
-                new Product{ProductName="Silver Ring",Price=100,Size="No Size",Brand="No Brand",Color="Silver",Discription="Silver Ladies Ring",Category="Accesories"},
-                new Product{ProductName="Silver neckless",Price=120,Size="No Size",Brand="No Brand",Color="Silver",Discription="Silver Ladies Neckless",Category="Accesories"},
-                new Product{ProductName="Shirt",Price=60,Size="S",Brand="No Brand",Color="White",Discription="",Category="Shirt Men Children"},
-                new Product{ProductName="Shirt",Price=60,Size="L",Brand="No Brand",Color="Blue",Discription="",Category="Shirt Women"},
-                new Product{ProductName="Dress",Price=60,Size="M",Brand="No Brand",Color="Red",Discription="",Category="Dress Women"},
-                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="green",Discription="",Category="Shirt Women"},
-                new Product{ProductName="Dress",Price=60,Size="L",Brand="No Brand",Color="Pink",Discription="",Category="Dress Women"},
-                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="Orange",Discription="",Category="Shirt Men"},
-                new Product{ProductName="Coat",Price=80,Size="S",Brand="No Brand",Color="Colorfull",Discription="",Category="Shirt Men Children Women Unisex"}
+                new Product{ProductName="Vans Old Skool",Price=120,Size="39",Brand="Vans",Color="Black&White",Discription="Vans the best for you",Urlimage="~/DesignShop/images/product-01.jpg",Category="Shoes Men Women Unisex"},
+                new Product{ProductName="Toms Classic",Price=140,Size="40",Brand="Toms",Color="Blue",Discription="Toms since 1972",Urlimage="~/DesignShop/images/product-02.jpg",Category="Men Shoes"},
+                new Product{ProductName="Lee Copper Classic",Price=70,Size="M",Brand="Lee Copper",Color="Black",Discription="Lee Copper since 1980",Urlimage="",Category="Men Jeans"},
+                new Product{ProductName="Blanston Boots",Price=270,Size="41",Brand="Blanston",Color="Brown",Discription="Blanston the best for you",Urlimage="",Category="Shoes Unisex Men Women "},
+                new Product{ProductName="Prada Dress",Price=3200,Size="M",Brand="Prada",Color="Black",Discription="Very Uniq",Urlimage="",Category="Dress Women Prada Uniq"},
+                new Product{ProductName="Rolex watch",Price=1200,Size="No Size",Brand="Rolex",Color="Silver",Discription="Most Uniq",Urlimage="",Category="Accesories"},
+                new Product{ProductName="Timberland Boots",Price=350,Size="42",Brand="Timberland",Color="Brown",Discription="Come To Us",Urlimage="",Category="Shoes"},
+                new Product{ProductName="Adidas Super Star",Price=250,Size="43",Brand="Adidas",Color="Any",Discription="Be a Star",Urlimage="",Category="Shoes"},
+                new Product{ProductName="Nike Air",Price=220,Size="41",Brand="Nike",Color="White",Discription="The Best For You",Urlimage="",Category="Shoes"},
+                new Product{ProductName="T-Shirt",Price=40,Size="S",Brand="No Brand",Color="Black",Discription="With wolf paint",Urlimage="",Category="T-Shirt Shirt Men"},
+                new Product{ProductName="Coat",Price=100,Size="M",Brand="No Brand",Color="Many",Discription="Ladies coat",Urlimage="",Category="Coat Women winter"},
+                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="Colorfull",Discription="",Urlimage="",Category="Shirt Men Children"},
+                new Product{ProductName="Silver Ring",Price=100,Size="No Size",Brand="No Brand",Color="Silver",Urlimage="",Discription="Silver Ladies Ring",Category="Accesories"},
+                new Product{ProductName="Silver neckless",Price=120,Size="No Size",Brand="No Brand",Color="Silver",Urlimage="",Discription="Silver Ladies Neckless",Category="Accesories"},
+                new Product{ProductName="Shirt",Price=60,Size="S",Brand="No Brand",Color="White",Discription="",Urlimage="",Category="Shirt Men Children"},
+                new Product{ProductName="Shirt",Price=60,Size="L",Brand="No Brand",Color="Blue",Discription="",Urlimage="",Category="Shirt Women"},
+                new Product{ProductName="Dress",Price=60,Size="M",Brand="No Brand",Color="Red",Discription="",Urlimage="",Category="Dress Women"},
+                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="green",Discription="",Urlimage="",Category="Shirt Women"},
+                new Product{ProductName="Dress",Price=60,Size="L",Brand="No Brand",Color="Pink",Discription="",Urlimage="",Category="Dress Women"},
+                new Product{ProductName="Shirt",Price=60,Size="M",Brand="No Brand",Color="Orange",Discription="",Urlimage="",Category="Shirt Men"},
+                new Product{ProductName="Coat",Price=80,Size="S",Brand="No Brand",Color="Colorfull",Discription="",Urlimage="",Category="Shirt Men Children Women Unisex"}
             };
             foreach (Product p in products)
             {

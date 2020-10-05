@@ -24,6 +24,7 @@ namespace BSOS.Models
         public string Brand { get; set; } //The Manufacturer of the product
         public string Color { get; set; }
         public string Discription { get; set; }
+        public string Urlimage { get; set; }
 
         public string Category { get; set; }  //The category that the product belongs to. For example: Shirt,Pants,Shoes...
                                                //may contain also gender (not necessary) and also multi categories

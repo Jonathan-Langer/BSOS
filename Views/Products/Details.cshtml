@@ -47,16 +47,11 @@
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         <li>
-                            <a href="index.html">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage 1</a></li>
-                                <li><a href="home-02.html">Homepage 2</a></li>
-                                <li><a href="home-03.html">Homepage 3</a></li>
-                            </ul>
+                            <a href="~/Home/Index">Home</a>
                         </li>
 
                         <li>
-                            <a href="product.html">Shop</a>
+                            <a href="~/Products/Index">Shop</a>
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -73,6 +68,9 @@
 
                         <li>
                             <a href="contact.html">Contact</a>
+                        </li>
+                        <li>
+                            <a href="~/Home/LogIn">Log In</a>
                         </li>
                     </ul>
                 </div>
@@ -445,7 +443,7 @@
                     </li>
 
                     <li class="nav-item p-b-10">
-                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a>
                     </li>
                 </ul>
 
@@ -455,7 +453,7 @@
                     <div class="tab-pane fade show active" id="description" role="tabpanel">
                         <div class="how-pos2 p-lr-15-md">
                             <p class="stext-102 cl6">
-                                Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+                              bla bla
                             </p>
                         </div>
                     </div>
@@ -524,32 +522,37 @@
                         <div class="row">
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="p-b-30 m-lr-15-sm">
-                                    <!-- Review -->
-                                    <div class="flex-w flex-t p-b-68">
-                                        <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                            <img src="~/DesignShop/images/avatar-01.jpg" alt="AVATAR">
-                                        </div>
+                                    @foreach (var item in Model.Comments)
+                                    {
+                                        <!-- Review -->
 
-                                        <div class="size-207">
-                                            <div class="flex-w flex-sb-m p-b-17">
-                                                <span class="mtext-107 cl2 p-r-20">
-                                                    Ariana Grande
-                                                </span>
-
-                                                <span class="fs-18 cl11">
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-half"></i>
-                                                </span>
+                                        <div class="flex-w flex-t p-b-68">
+                                            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                <img src="~/DesignShop/images/avatar-01.jpg" alt="AVATAR">
                                             </div>
 
-                                            <p class="stext-102 cl6">
-                                                Quod autem in homine praestantissimum atque optimum est, id deseruit. Apud ceteros autem philosophos
-                                            </p>
+                                            <div class="size-207">
+                                                <div class="flex-w flex-sb-m p-b-17">
+                                                    <span class="mtext-107 cl2 p-r-20">
+                                                        @Html.DisplayFor(modelItem=>item.SentBy)
+                                                    </span>
+
+                                                    <span class="fs-18 cl11">
+                                                        <i class="zmdi zmdi-star"></i>
+                                                        <i class="zmdi zmdi-star"></i>
+                                                        <i class="zmdi zmdi-star"></i>
+                                                        <i class="zmdi zmdi-star"></i>
+                                                        <i class="zmdi zmdi-star-half"></i>
+                                                    </span>
+                                                </div>
+
+                                                <p class="stext-102 cl6">
+                                                    df
+                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
 
                                     <!-- Add review -->
                                     <form class="w-full">
@@ -558,7 +561,7 @@
                                         </h5>
 
                                         <p class="stext-102 cl6">
-                                            Your email address will not be published. Required fields are marked *
+                                            Your private details will not be published. Required fields are marked *
                                         </p>
 
                                         <div class="flex-w flex-m p-t-50 p-b-23">
@@ -583,13 +586,13 @@
                                             </div>
 
                                             <div class="col-sm-6 p-b-5">
-                                                <label class="stext-102 cl3" for="name">Name</label>
-                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
+                                                <label class="stext-102 cl3" for="SentBy">Name</label>
+                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="SentBy">
                                             </div>
 
                                             <div class="col-sm-6 p-b-5">
-                                                <label class="stext-102 cl3" for="email">Email</label>
-                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
+                                                <label class="stext-102 cl3" for="Title">Title</label>
+                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="Title">
                                             </div>
                                         </div>
 
