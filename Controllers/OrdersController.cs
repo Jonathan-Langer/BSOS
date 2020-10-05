@@ -79,13 +79,20 @@ namespace BSOS.Controllers
                 }
                 order.Customer = _context.Customers.First(c => c.Id == CustomerId);
                 order.TotalPrice = 0;
+                order.OrderDate = DateTime.Now;
                 foreach (var pro in order.ProductOrders)
                 {
                     order.TotalPrice += pro.Product.Price;
                 }
-                order.OrderDate = DateTime.Now;
-                _context.Add(order);
+                _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
+                if (order.Customer.Orders == null)
+                    order.Customer.Orders = new List<Order>();
+                order.Customer.Orders.Add(order);
+                _context.Orders.Update(order);
+                _context.SaveChanges();
+                _context.Customers.Update(order.Customer);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
@@ -182,11 +189,11 @@ namespace BSOS.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Orders.FindAsync(id);
+            order.Customer.Orders.Remove(order);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderID == id);

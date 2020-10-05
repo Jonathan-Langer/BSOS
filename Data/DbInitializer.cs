@@ -11,7 +11,7 @@ namespace BSOS.Data
     {
         public static void Initialize(BSOSContext context)
         {
-            //context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
             if (context.Customers.Any())
             {
                 return; //DB is full already
@@ -29,6 +29,10 @@ namespace BSOS.Data
                 context.Customers.Add(c);
             }
             context.SaveChanges();
+            if (context.Products.Any())
+            {
+                return; //DB is full already
+            }
             var products = new Product[]
             {
                 new Product{ProductName="Vans Old Skool",Price=120,Size="39",Brand="Vans",Color="Black&White",Discription="Vans the best for you",Category="Shoes Men Women Unisex"},

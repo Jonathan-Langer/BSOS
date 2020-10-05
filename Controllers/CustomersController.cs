@@ -103,7 +103,7 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
@@ -183,10 +183,18 @@ namespace BSOS.Controllers
             }
             return View(await result.ToListAsync());
         }
-        public async Task<IActionResult> CountOrders()
+        public async Task<IActionResult> CountOrders()// query that give us the customers who had at least one order
         {
-            var count = _context.Orders.GroupBy(c => c.CustomerId);
-            return View(await count.ToListAsync());
+            var result = _context.Customers.Where(c => c.Orders.Count() > 0);
+            //var result1 = from o in _context.Orders
+            //             group o by o.CustomerId into g
+            //             where (g.Count() >= 1)
+            //             select new { Key=g.Key, Count=g.Count() };
+            //var result2 = from o in _context.Orders
+            //              group o by o.CustomerId into g
+            //              where g.All(i => i.Customer.Orders.Count > 0)
+            //              select new { Category = g.Key, Items = g };
+            return View(await result.ToListAsync());
         }
     }
 }
