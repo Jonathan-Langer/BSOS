@@ -141,7 +141,6 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-
             return View(customer);
         }
 
@@ -166,6 +165,35 @@ namespace BSOS.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> Filter(string Country, string City, string Gender)
+        {
+            var result = from c in _context.Customers select c;
+            if (!(String.IsNullOrEmpty(Country)) && City != "city")
+            {
+                result = from c in result where (c.City.Equals(City)) select c;
+            }
+            if (!String.IsNullOrEmpty(Country) && Country != "country")
+            {
+                result = from c in result where (c.Country.Equals(Country)) select c;
+            }
+            if (!String.IsNullOrEmpty(Gender) && Gender != "gender")
+            {
+                result = from c in result where (c.Gender.Equals(Gender)) select c;
+            }
+            return View(await result.ToListAsync());
+        }
+        public async Task<IActionResult> CountOrders()
+        {
+            var count =
+                from c in _context.Customers
+                join o in _context.Orders
+                on c.Id equals o.CustomerId
+                group o by c into g
+                let AmountOfOrders=g.Count()
+                orderby g.Count() descending
+                select new { g.Key.FirstName,g.Key.LastName, AmountOfOrders};
+            return View(await count.ToListAsync());
         }
     }
 }

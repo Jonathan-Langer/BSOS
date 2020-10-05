@@ -10,7 +10,6 @@ namespace BSOS.Models
 {
     public class Order
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderID { get; set; }
 
         [Required]

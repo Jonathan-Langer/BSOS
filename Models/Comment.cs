@@ -9,7 +9,6 @@ namespace BSOS.Models
 {
     public class Comment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [RegularExpression(@"^[A-Za-z0-9\s]$")]
