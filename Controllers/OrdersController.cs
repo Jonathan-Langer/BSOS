@@ -73,10 +73,11 @@ namespace BSOS.Controllers
             if (ModelState.IsValid)
             {
                 order.ProductOrders = new List<ProductOrder>();
-                foreach (var id in ProductId)
+                foreach (var id in ProductId)//insert products into details
                 {
                     order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id),Order=order });
                 }
+                await _context.SaveChangesAsync();
                 order.Customer = _context.Customers.First(c => c.Id == CustomerId);
                 order.TotalPrice = 0;
                 order.OrderDate = DateTime.Now;
@@ -86,13 +87,22 @@ namespace BSOS.Controllers
                 }
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
-                if (order.Customer.Orders == null)
-                    order.Customer.Orders = new List<Order>();
+                order.ProductOrders = new List<ProductOrder>();
+                foreach (var id in ProductId)
+                {
+                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
+                    //_context.ProductOrder.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
+                }
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
                 order.Customer.Orders.Add(order);
                 _context.Orders.Update(order);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 _context.Customers.Update(order.Customer);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+                foreach (var id in ProductId)
+                    _context.Products.Find(id).ProductOrders.Add(_context.ProductOrder.Find(id, order.OrderID));
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
