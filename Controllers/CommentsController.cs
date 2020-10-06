@@ -76,7 +76,7 @@ namespace BSOS.Controllers
                 comment.Product = _context.Products.First(p => p.ProductId == ProductId);
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("~/Views/Products/Details.cshtml", _context.Products.Find(ProductId));
             }
             return View(comment);
         }

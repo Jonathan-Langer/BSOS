@@ -24,6 +24,7 @@ namespace BSOS.Models
         public string SentBy { get; set; }
         public DateTime Posted { get; set; }
         public string IP { get; set; } //IP Adress
+        public string UrlProfile { get; set; }
         public Product Product { get; set; }
         public int ProductId { get; set; }
     }
