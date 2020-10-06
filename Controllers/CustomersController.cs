@@ -204,5 +204,11 @@ namespace BSOS.Controllers
                          select c;
             return View(await result.ToListAsync());
         }
+        public async Task<IActionResult> MoneyThatWasPayed()
+        {
+            var result = from c in _context.Customers.Include(c => c.Orders).ThenInclude(o => o.OrderID)
+                         select c;
+            return View(await result.ToListAsync());
+        }
     }
 }

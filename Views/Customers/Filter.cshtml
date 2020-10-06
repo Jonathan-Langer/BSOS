@@ -58,11 +58,11 @@
                     <h5>Country</h5>
                 </header>
                 <ul>
-                    @foreach (var p in (from c in Model group c.Country by c.Country))
+                    @foreach (var p in (from c in Model select c.Country).Distinct())
                     {
                         <li>
-                            <input type="radio" name="country" value="@p.Key">
-                            <label for="country">@p.Key</label>
+                            <input type="radio" name="country" value="@p">
+                            <label for="country">@p</label>
                             <br>
                         </li>
                     }
@@ -73,11 +73,11 @@
                     <h5>City</h5>
                 </header>
                 <ul>
-                    @foreach (var p in (from c in Model group c.City by c.City))
+                    @foreach (var p in (from c in Model select c.City).Distinct())
                     {
                         <li>
-                            <input type="radio" name="city" value="@p.Key">
-                            <label for="city">@p.Key</label>
+                            <input type="radio" name="city" value="@p">
+                            <label for="city">@p</label>
                             <br>
                         </li>
                     }
@@ -103,7 +103,7 @@
                     <button type="submit" class="btn btn-primary">Filter</button>
                     <br />
                     <br />
-                    <button type="submit" class="btn btn-danger" asp-route-Country="country" asp-route-City="city" asp-route-Gender="gender">Cancel</button>
+                    <button type="submit" class="btn btn-danger" asp-route-Country="country" asp-route-City="city" asp-route-Gender="gender">Clear</button>
                 </footer>
             </section>
         </form>

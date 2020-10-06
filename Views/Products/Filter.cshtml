@@ -58,11 +58,11 @@
                     <h5>Brand</h5>
                 </header>
                 <ul>
-                    @foreach (var p in (from pro in Model group pro.Brand by pro.Brand))
+                    @foreach (var p in (from pro in Model select pro.Brand).Distinct())
                     {
                         <li>
-                            <input type="radio" name="brand" value="@p.Key">
-                            <label for="brand">@p.Key</label>
+                            <input type="radio" name="brand" value="@p">
+                            <label for="brand">@p</label>
                             <br>
                         </li>
                     }
@@ -73,11 +73,11 @@
                     <h5>Size</h5>
                 </header>
                 <ul>
-                    @foreach (var p in (from pro in Model group pro.Size by pro.Size))
+                    @foreach (var p in (from pro in Model select pro.Size).Distinct())
                     {
                         <li>
-                            <input type="radio" name="size" value="@p.Key">
-                            <label for="size">@p.Key</label>
+                            <input type="radio" name="size" value="@p">
+                            <label for="size">@p</label>
                             <br>
                         </li>
                     }
@@ -88,11 +88,11 @@
                     <h5>Color</h5>
                 </header>
                 <ul>
-                    @foreach (var p in (from pro in Model group pro.Color by pro.Color))
+                    @foreach (var p in (from pro in Model select pro.Color).Distinct())
                     {
                         <li>
-                            <input type="radio" name="color" value="@p.Key">
-                            <label>@p.Key</label>
+                            <input type="radio" name="color" value="@p">
+                            <label>@p</label>
                             <br>
                         </li>
                     }
@@ -101,7 +101,7 @@
                     <button type="submit" class="btn btn-primary">Filter</button>
                     <br />
                     <br />
-                    <button type="submit" class="btn btn-danger" asp-route-Brand="brand" asp-route-Size="size" asp-route-Color="color">Cancel</button>
+                    <button type="submit" class="btn btn-danger" asp-route-Brand="brand" asp-route-Size="size" asp-route-Color="color">Clear</button>
                 </footer>
             </section>
         </form>
