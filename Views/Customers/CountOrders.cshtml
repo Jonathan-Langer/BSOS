@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BSOS.Models.Customer>
+
+@{
+    ViewData["Title"] = "CountOrders";
+}
+
+<h1>CountOrders</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                Num Of Orders
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Orders.Count()
+            </td>
+            </tr>
+}
+    </tbody>
+</table>

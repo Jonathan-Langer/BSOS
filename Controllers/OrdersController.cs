@@ -73,18 +73,35 @@ namespace BSOS.Controllers
             if (ModelState.IsValid)
             {
                 order.ProductOrders = new List<ProductOrder>();
-                foreach (var id in ProductId)
+                foreach (var id in ProductId)//insert products into details
                 {
                     order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id),Order=order });
                 }
+                await _context.SaveChangesAsync();
                 order.Customer = _context.Customers.First(c => c.Id == CustomerId);
                 order.TotalPrice = 0;
+                order.OrderDate = DateTime.Now;
                 foreach (var pro in order.ProductOrders)
                 {
                     order.TotalPrice += pro.Product.Price;
                 }
-                order.OrderDate = DateTime.Now;
-                _context.Add(order);
+                _context.Orders.Add(order);
+                await _context.SaveChangesAsync();
+                order.ProductOrders = new List<ProductOrder>();
+                foreach (var id in ProductId)
+                {
+                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
+                    //_context.ProductOrder.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
+                }
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
+                order.Customer.Orders.Add(order);
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
+                _context.Customers.Update(order.Customer);
+                await _context.SaveChangesAsync();
+                foreach (var id in ProductId)
+                    _context.Products.Find(id).ProductOrders.Add(_context.ProductOrder.Find(id, order.OrderID));
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -182,11 +199,11 @@ namespace BSOS.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Orders.FindAsync(id);
+            order.Customer.Orders.Remove(order);
             _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderID == id);

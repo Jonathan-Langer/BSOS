@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace BSOS.Models
 {
-    public class Customer
+    public enum Role
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        Admin,
+        Customer
+    }
+    public class Customer 
+    {
         public int Id { get; set; }
 
         [StringLength(20)]
@@ -54,6 +58,6 @@ namespace BSOS.Models
         public DateTime Birthday { get; set; }
 
         public ICollection<Order> Orders { get; set; }
-
+        public Role Role { get; set; }
     }
 }

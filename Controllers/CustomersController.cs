@@ -65,10 +65,11 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender,PhoneNumber,Email,Password,Country,City,ZipCode,Address,Birthday")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Gender,PhoneNumber,Email,Password,Country,City,ZipCode,Address,Birthday,Orders")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.Orders = new List<Order>();
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -85,6 +86,7 @@ namespace BSOS.Controllers
             }
 
             var customer = await _context.Customers.FindAsync(id);
+            ViewBag.Orders = customer.Orders;
             if (customer == null)
             {
                 return NotFound();
@@ -97,13 +99,13 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Gender,PhoneNumber,Email,Password,Country,City,ZipCode,Address,Birthday")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Gender,PhoneNumber,Email,Password,Country,City,ZipCode,Address,Birthday,Orders")] Customer customer)
         {
             if (id != customer.Id)
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 try
@@ -168,26 +170,39 @@ namespace BSOS.Controllers
         }
         public async Task<IActionResult> Filter(string Country, string City, string Gender)
         {
-            var result = from c in _context.Customers select c;
+            var result = from c 
+                         in _context.Customers 
+                         select c;
             if (!(String.IsNullOrEmpty(Country)) && City != "city")
             {
-                result = from c in result where (c.City.Equals(City)) select c;
+                result = from c
+                         in result 
+                         where (c.City.Equals(City)) 
+                         select c;
             }
             if (!String.IsNullOrEmpty(Country) && Country != "country")
             {
-                result = from c in result where (c.Country.Equals(Country)) select c;
+                result = from c
+                         in result
+                         where (c.Country.Equals(Country)) 
+                         select c;
             }
             if (!String.IsNullOrEmpty(Gender) && Gender != "gender")
             {
-                result = from c in result where (c.Gender.Equals(Gender)) select c;
+                result = from c
+                         in result
+                         where (c.Gender.Equals(Gender))
+                         select c;
             }
             return View(await result.ToListAsync());
         }
-        public async Task<IActionResult> CountOrders()
+        public async Task<IActionResult> CountOrders()// query that give us the customers who had at least one order and how many orders they did
         {
-            var count = from o in _context.Orders group o.CustomerId by o.CustomerId into CustomersGroup select CustomersGroup.Key;
-            var result = from c in _context.Customers select c;
-            return View(await count.ToListAsync());
+            var result = from c in _context.Customers.Include(o => o.Orders)
+                         where c.Orders.Count > 0 
+                         orderby c.Orders.Count descending 
+                         select c;
+            return View(await result.ToListAsync());
         }
     }
 }

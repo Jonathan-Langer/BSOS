@@ -100,6 +100,9 @@ namespace BSOS.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(7)")
                         .HasMaxLength(7);
@@ -160,6 +163,9 @@ namespace BSOS.Migrations
 
                     b.Property<string>("Size")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Urlimage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");

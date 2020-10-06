@@ -28,8 +28,6 @@ namespace BSOS
         {
             services.AddDbContext<BSOSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
             services.AddControllersWithViews();
-            //services.AddMvc();
-            //services.AddSession();
            
         }
 

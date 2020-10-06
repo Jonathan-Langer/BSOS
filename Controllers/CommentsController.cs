@@ -69,7 +69,7 @@ namespace BSOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Body,SentBy,Posted,IP")] Comment comment, int ProductId)
         {
-            if (ModelState.IsValid)
+            if (comment.Title!=null&&comment.SentBy!=null&&comment.Body!=null)
             {
                 comment.Posted = DateTime.Now;
                 comment.IP = HttpContext.Connection.RemoteIpAddress.ToString();
@@ -102,18 +102,19 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,Posted")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Body,SentBy,Posted,IP,ProductId")] Comment comment,int ProductId)
         {
             if (id != comment.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (comment.Title != null && comment.Body != null)//ModelState.IsValid
             {
                 try
                 {
                     comment.Posted = DateTime.Now;
+                    comment.Product = _context.Products.Find(comment.ProductId);
                     _context.Update(comment);
                     await _context.SaveChangesAsync();
                 }

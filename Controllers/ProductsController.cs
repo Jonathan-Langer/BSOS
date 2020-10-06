@@ -65,7 +65,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Price,Size,Brand,Color,Gender")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,Price,Size,Brand,Color,Category")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Size,Brand,Color,Gender")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Size,Brand,Color,Category")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -162,18 +162,30 @@ namespace BSOS.Controllers
 
         public async Task<IActionResult> Filter(string Brand, string Size, string Color)
         {
-            var result = from p in _context.Products select p;
+            var result = 
+                from p
+                in _context.Products 
+                select p;
             if (!(String.IsNullOrEmpty(Brand))&&Brand!="brand")
             {
-                result = from pro in result where (pro.Brand.Equals(Brand)) select pro;
+                result = from pro
+                         in result
+                         where (pro.Brand.Equals(Brand)) 
+                         select pro;
             }
             if (!String.IsNullOrEmpty(Size)&&Size!="size")
             {
-                result = from pro in result where (pro.Size.Equals(Size)) select pro;
+                result = from pro
+                         in result
+                         where (pro.Size.Equals(Size))
+                         select pro;
             }
             if (!String.IsNullOrEmpty(Color)&&Color!="color")
             {
-                result = from pro in result where (pro.Color.Equals(Color)) select pro;
+                result = from pro 
+                         in result
+                         where (pro.Color.Equals(Color))
+                         select pro;
             }
             return View(await result.ToListAsync());
 
