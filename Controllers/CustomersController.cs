@@ -209,19 +209,28 @@ namespace BSOS.Controllers
         public async Task<IActionResult> MoneyThatWasPayed()
         {
             double NewTotal = 0;
-            var result = (from c in _context.Customers.Include(cu => cu.Orders).ThenInclude(o=>o.TotalPrice) select new { c.FirstName, c.LastName, Total = 0.0 }).ToList();//create empty result table
-            foreach (var c in _context.Customers)
+            var result = (from c in _context.Customers.Include(c => c.Orders) where(1<0) select new ObjectResult()).ToList();//create empty result table
+            foreach (var c in _context.Customers.Include(c=>c.Orders))
             {
                 NewTotal = 0;
-                foreach (var o in c.Orders)
+                if (c.Orders != null)
                 {
-                    NewTotal += o.TotalPrice;
+                    foreach (var o in c.Orders)
+                    {
+                        NewTotal += o.TotalPrice;
+                    }
                 }
-                result.Add(new {c.FirstName, c.LastName, NewTotal});
+                result.Add(new ObjectResult() { FirstName = c.FirstName, LastName = c.LastName,Email=c.Email, Total = NewTotal });
             }
-
-            var result2 = _context.Customers.ToList().Join();
-            return View(result);
+            return View(result.ToList());
         }
+    }
+
+    internal class ObjectResult
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public double Total { get; set; }
     }
 }

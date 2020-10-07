@@ -10,6 +10,7 @@ using BSOS.Models;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.EntityFrameworkCore.Storage;
 using SQLitePCL;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BSOS.Controllers
 {
@@ -162,10 +163,9 @@ namespace BSOS.Controllers
 
         public async Task<IActionResult> Filter(string Brand, string Size, string Color)
         {
-            var result = 
-                from p
-                in _context.Products 
-                select p;
+            var result = from p
+                         in _context.Products 
+                         select p;
             if (!(String.IsNullOrEmpty(Brand))&&Brand!="brand")
             {
                 result = from pro
@@ -188,7 +188,37 @@ namespace BSOS.Controllers
                          select pro;
             }
             return View(await result.ToListAsync());
-
+        }
+        public async Task<IActionResult> AmountOfOrdersPerProduct()
+        {
+            int Count;
+            var result = await (from p in _context.Products where (1 < 0) select new ObjectResult()).ToListAsync();//create empty result table
+            foreach (var p in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
+            {
+                Count = 0;
+                foreach (var c in _context.Customers.Include(c => c.Orders).ThenInclude(po => po.ProductOrders))
+                {
+                    if (c.Orders == null)
+                        continue;
+                    foreach (var o in c.Orders)
+                    {
+                        if (o == null)
+                            continue;
+                        foreach (var po in o.ProductOrders)
+                            if (po.ProductId == p.ProductId)
+                                ++Count;
+                    }
+                }
+                result.Add(new ObjectResult() { Brand = p.Brand, ProductName = p.ProductName, price = p.Price, count = Count });
+            }
+            return View(result.ToList());
+        }
+        internal class ObjectResult
+        {
+            public string Brand { get; set; }
+            public string ProductName { get; set; }
+            public double price { get; set; }
+            public int count { get; set; }
         }
     }
 }

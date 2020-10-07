@@ -88,8 +88,7 @@ namespace BSOS.Controllers
                 order.ProductOrders = new List<ProductOrder>();
                 foreach (var id in ProductId)
                 {
-                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
-                    //_context.ProductOrder.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = order });
+                    order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = _context.Orders.Find(order.OrderID) });
                 }
                 _context.Orders.Update(order);
                 await _context.SaveChangesAsync();
