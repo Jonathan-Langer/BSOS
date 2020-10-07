@@ -9,6 +9,8 @@ using BSOS.Data;
 using BSOS.Models;
 using System.Web;
 using Microsoft.AspNetCore.Session;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace BSOS.Controllers
 {
@@ -105,7 +107,7 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-            
+
             if (ModelState.IsValid)
             {
                 try
@@ -170,21 +172,21 @@ namespace BSOS.Controllers
         }
         public async Task<IActionResult> Filter(string Country, string City, string Gender)
         {
-            var result = from c 
-                         in _context.Customers 
+            var result = from c
+                         in _context.Customers
                          select c;
             if (!(String.IsNullOrEmpty(Country)) && City != "city")
             {
                 result = from c
-                         in result 
-                         where (c.City.Equals(City)) 
+                         in result
+                         where (c.City.Equals(City))
                          select c;
             }
             if (!String.IsNullOrEmpty(Country) && Country != "country")
             {
                 result = from c
                          in result
-                         where (c.Country.Equals(Country)) 
+                         where (c.Country.Equals(Country))
                          select c;
             }
             if (!String.IsNullOrEmpty(Gender) && Gender != "gender")
@@ -199,16 +201,27 @@ namespace BSOS.Controllers
         public async Task<IActionResult> CountOrders()// query that give us the customers who had at least one order and how many orders they did
         {
             var result = from c in _context.Customers.Include(o => o.Orders)
-                         where c.Orders.Count > 0 
-                         orderby c.Orders.Count descending 
+                         where c.Orders.Count > 0
+                         orderby c.Orders.Count descending
                          select c;
             return View(await result.ToListAsync());
         }
         public async Task<IActionResult> MoneyThatWasPayed()
         {
-            var result = from c in _context.Customers.Include(c => c.Orders).ThenInclude(o => o.OrderID)
-                         select c;
-            return View(await result.ToListAsync());
+            double NewTotal = 0;
+            var result = (from c in _context.Customers.Include(cu => cu.Orders).ThenInclude(o=>o.TotalPrice) select new { c.FirstName, c.LastName, Total = 0.0 }).ToList();//create empty result table
+            foreach (var c in _context.Customers)
+            {
+                NewTotal = 0;
+                foreach (var o in c.Orders)
+                {
+                    NewTotal += o.TotalPrice;
+                }
+                result.Add(new {c.FirstName, c.LastName, NewTotal});
+            }
+
+            var result2 = _context.Customers.ToList().Join();
+            return View(result);
         }
     }
 }

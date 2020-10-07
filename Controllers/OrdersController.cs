@@ -13,7 +13,6 @@ namespace BSOS.Controllers
     public class OrdersController : Controller
     {
         private readonly BSOSContext _context;
-
         public OrdersController(BSOSContext context)
         {
             _context = context;
@@ -50,7 +49,6 @@ namespace BSOS.Controllers
             {
                 return NotFound();
             }
-
             return View(order);
         }
 
