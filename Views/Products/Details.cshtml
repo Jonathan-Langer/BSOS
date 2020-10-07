@@ -4,6 +4,44 @@
     ViewData["Title"] = "Details";
 }
 
+<head>
+        <title>Product Detail</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animsition/css/animsition.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/daterangepicker/daterangepicker.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/slick/slick.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/MagnificPopup/magnific-popup.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
+        <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
+        <!--===============================================================================================-->
+    </head>
+
+
+
 <!-- Header -->
 <header class="header-v4">
     <!-- Header desktop -->
@@ -47,11 +85,11 @@
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         <li>
-                            <a href="~/Home/Index">Home</a>
+                            <a asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
                         <li>
-                            <a href="~/Products/Index">Shop</a>
+                            <a asp-controller="Products" asp-action="Index">Shop</a>
                         </li>
 
                         <li class="label1" data-label1="hot">
@@ -59,18 +97,14 @@
                         </li>
 
                         <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-
-                        <li>
-                            <a href="about.html">About</a>
+                            <a asp-controller="Home" asp-action="About">About</a>
                         </li>
 
                         <li>
                             <a href="contact.html">Contact</a>
                         </li>
                         <li>
-                            <a href="~/Home/LogIn">Log In</a>
+                            <a asp-controller="Home" asp-action="LogIn">Log In</a>
                         </li>
                     </ul>
                 </div>
@@ -202,16 +236,16 @@
         </div>
     </div>
 
-<!-- breadcrumb -->
+<!-- breadcrumb -->   
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-        <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
+        <a asp-controller="Home" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
+            Home->
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
 
-        <a href="~/Products/Index" class="stext-109 cl8 hov-cl1 trans-04">
-            Shop
+        <a asp-controller="Products" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
+            Shop->
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
 
@@ -266,6 +300,7 @@
                                 <div class="rs1-select2 bor8 bg0">
                                     <select class="js-select2" name="time">
                                         <option>Choose an option</option>
+                                        <option>@Html.DisplayFor(model=>model.Size)</option>
                                         <option>Size S</option>
                                         <option>Size M</option>
                                         <option>Size L</option>
@@ -285,6 +320,7 @@
                                 <div class="rs1-select2 bor8 bg0">
                                     <select class="js-select2" name="time">
                                         <option>Choose an option</option>
+                                        <option>@Html.DisplayFor(model=>model.Color)</option>
                                         <option>Red</option>
                                         <option>Blue</option>
                                         <option>White</option>
@@ -352,9 +388,8 @@
                     <li class="nav-item p-b-10">
                         <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
                     </li>
-
                     <li class="nav-item p-b-10">
-                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a>
+                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews()</a>
                     </li>
                 </ul>
 
@@ -434,35 +469,33 @@
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="p-b-30 m-lr-15-sm">
                                     @foreach (var item in Model.Comments)
-                                    {
+                                     {
                                         <!-- Review -->
 
                                         <div class="flex-w flex-t p-b-68">
-                                            @*<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                <img src="~/DesignShop/images/avatar-01.jpg" alt="AVATAR">
-                                            </div>*@
+                                            <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                <img src= @item.UrlProfile>
+                                            </div>
 
                                             <div class="size-207">
                                                 <div class="flex-w flex-sb-m p-b-17">
                                                     <span class="mtext-107 cl2 p-r-20">
-                                                        @Html.DisplayFor(modelItem=>item.SentBy)
+                                                        @Html.DisplayFor(modelItem => item.SentBy)
                                                     </span>
-
-                                                    @*<span class="fs-18 cl11">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-half"></i>
-                                                    </span>*@
+                                                    <span class="mtext-107 cl2 p-r-20">
+                                                        @Html.DisplayFor(modelItem => item.Posted)
+                                                    </span>
                                                 </div>
 
                                                 <p class="stext-102 cl6">
                                                     @Html.DisplayFor(modelItem => item.Title)
                                                 </p>
+                                                <p class="stext-102 cl6">
+                                                    @Html.DisplayFor(modelItem => item.Body)
+                                                </p>
                                             </div>
                                         </div>
-                                    }
+                                     }
 
                                     <!-- Add review -->
                                 <form asp-controller="Comments" asp-action="Create" asp-route-ProductId="ProductId" asp-route-SentBy="SentBy" asp-route-Title="Title" asp-route-Body="Body" class="w-full">
@@ -477,11 +510,11 @@
 
                                     <div class="row p-b-25">
                                         <div class="col-sm-6 p-b-5">
-                                            <label class="stext-102 cl3" for="Title">Title</label>
+                                            <label class="stext-102 cl3" for="SentBy">Name</label>
                                             <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="Title">
                                         </div>
                                         <div class="col-sm-6 p-b-5">
-                                            <label class="stext-102 cl3" for="SentBy">Name</label>
+                                            <label class="stext-102 cl3" for="Title">Title</label>
                                             <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="SentBy">
                                         </div>
                                         <div class="col-12 p-b-5">
@@ -503,5 +536,7 @@
         </div>
     </div>
 </section>
+
+
 
 

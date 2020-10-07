@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
 
 namespace BSOS.Models
@@ -28,11 +29,13 @@ namespace BSOS.Models
         public string Gender { get; set; }
 
         [Display(Name = "Phone")]
-        [RegularExpression(@"^[0-9\s]*$")]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        //[Index(IsUnique = true)]
+
         public string Email { get; set; }
 
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using BSOS.Controllers;
 using BSOS.Data;
 using BSOS.Models;
 
@@ -18,11 +19,16 @@ namespace BSOS.Controllers
         {
             _context = context;
         }
+   
 
         // GET: Comments
         public async Task<IActionResult> Index()
         {
             return View(await _context.Comment.ToListAsync());
+        }
+        public IActionResult Approval()
+        {
+            return View("Approval");
         }
         public async Task<IActionResult> Search(string sentBy)
         {
@@ -75,8 +81,10 @@ namespace BSOS.Controllers
                 comment.IP = HttpContext.Connection.RemoteIpAddress.ToString();
                 comment.Product = _context.Products.First(p => p.ProductId == ProductId);
                 _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return View("~/Views/Products/Details.cshtml", _context.Products.Find(ProductId));
+                 await _context.SaveChangesAsync();
+                //return View("~/Views/Products/Details.cshtml", _context.Products.Find(ProductId));
+                ViewData["ProductId"] = ProductId;
+                return View("Approval");
             }
             return View(comment);
         }
