@@ -72,13 +72,51 @@ namespace BSOS.Controllers
             if (ModelState.IsValid)
             {
                 customer.Orders = new List<Order>();
+                customer.Orders.Add(new Order() { IsShoppingCart = true });
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
-
+        public void AddToCart(int CustomerId,int ProductId)
+        {
+               var Customer = _context.Customers.Include(o => o.Orders).ThenInclude(po=>po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+               var Product = _context.Products.Find(ProductId);
+               if(Customer!=null&&Product!=null)
+                {
+                    if (Customer.Orders.Count == 0)
+                        Customer.Orders.Add(new Order() { IsShoppingCart = true });
+                    var ShoppingCart = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
+                    if (ShoppingCart.ProductOrders == null)
+                        ShoppingCart.ProductOrders = new List<ProductOrder>();
+                    ShoppingCart.ProductOrders.Add(new ProductOrder() { ProductId = ProductId, Product = _context.Products.Find(ProductId),Order=null});
+                    _context.Customers.Update(Customer);
+                    _context.SaveChanges();
+                }
+        }
+        public void DeleteFromCart(int CustomerId, int ProductId)
+        {
+            var Customer = _context.Customers.Include(o => o.Orders)
+                .ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+            var Product = _context.Products.Find(ProductId);
+            var ProductOrder = _context.ProductOrder.Include(o => o.Order)
+                .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart)).FirstOrDefault();
+            if (Customer != null && Product != null&& ProductOrder!=null)
+            {
+                var ShoppingCart = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
+                ShoppingCart.ProductOrders.Remove(ProductOrder);
+                _context.Customers.Update(Customer);
+                _context.SaveChanges();
+                if(_context.ProductOrder.Include(o => o.Order)
+                .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart)).FirstOrDefault()!= null)
+                {
+                    _context.ProductOrder.Remove(_context.ProductOrder.Include(o => o.Order)
+                .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart)).FirstOrDefault());
+                    _context.SaveChanges();
+                }
+            }
+        }
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

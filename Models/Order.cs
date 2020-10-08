@@ -22,6 +22,9 @@ namespace BSOS.Models
 
         [Display(Name ="Customer Id")]
         public int CustomerId { get; set; }
-        
+        public bool IsShoppingCart { get; set; }//if this specific order is a shopping cart, 
+                                                //it will not be register in the database
+                                                //until the user will confirm and make the order
+
     }
 }

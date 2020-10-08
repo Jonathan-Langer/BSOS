@@ -60,7 +60,8 @@ namespace BSOS.Models
         [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }//Order history
+
         public Role Role { get; set; }
     }
 }
