@@ -17,14 +17,13 @@ namespace BSOS.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View("Shop");
         }
         public IActionResult LogIn()
         {
-            return View();
+            return View("Login");
         }
         public IActionResult About()
         {

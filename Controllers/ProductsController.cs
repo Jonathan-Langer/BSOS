@@ -220,5 +220,9 @@ namespace BSOS.Controllers
             public double price { get; set; }
             public int count { get; set; }
         }
+        public int AmountOfComments(Product pro)
+        {
+            return pro.Comments.Count();
+        }
     }
 }

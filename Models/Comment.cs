@@ -22,6 +22,8 @@ namespace BSOS.Models
         [RegularExpression(@"^[A-Za-z0-9\s]*$")]
         [StringLength(30)]
         public string SentBy { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Posted { get; set; }
         public string IP { get; set; } //IP Adress
         public string UrlProfile { get; set; }
