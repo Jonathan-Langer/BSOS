@@ -66,44 +66,6 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("OrderID,OrderDate,CustomerId")] Order order, int CustomerId, int[] ProductId)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        order.ProductOrders = new List<ProductOrder>();
-        //        foreach (var id in ProductId)//insert products into details
-        //        {
-        //            order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id),Order=order });
-        //        }
-        //        await _context.SaveChangesAsync();
-        //        order.Customer = _context.Customers.First(c => c.Id == CustomerId);
-        //        order.TotalPrice = 0;
-        //        order.OrderDate = DateTime.Now;
-        //        foreach (var pro in order.ProductOrders)
-        //        {
-        //            order.TotalPrice += pro.Product.Price;
-        //        }
-        //        _context.Orders.Add(order);
-        //        await _context.SaveChangesAsync();
-        //        order.ProductOrders = new List<ProductOrder>();
-        //        foreach (var id in ProductId)
-        //        {
-        //            order.ProductOrders.Add(new ProductOrder() { ProductId = id, OrderId = order.OrderID, Product = _context.Products.Find(id), Order = _context.Orders.Find(order.OrderID) });
-        //        }
-        //        _context.Orders.Update(order);
-        //        await _context.SaveChangesAsync();
-        //        order.Customer.Orders.Add(order);
-        //        _context.Orders.Update(order);
-        //        await _context.SaveChangesAsync();
-        //        _context.Customers.Update(order.Customer);
-        //        await _context.SaveChangesAsync();
-        //        foreach (var id in ProductId)
-        //            _context.Products.Find(id).ProductOrders.Add(_context.ProductOrder.Find(id, order.OrderID));
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(order);
-        //}
         public async Task<IActionResult> Create(int CustomerId)
         {
             var Customer = _context.Customers.Include(o => o.Orders)
@@ -112,13 +74,6 @@ namespace BSOS.Controllers
             if (Customer!=null)
             {
                 var order = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
-                //Order result = new Order();
-                //result.ProductOrders = new List<ProductOrder>();
-                //foreach (var po in order.ProductOrders)//insert products into details
-                //{
-                //    result.ProductOrders.Add(new ProductOrder() { ProductId = po.ProductId, OrderId = result.OrderID, Product = _context.Products.Find(po.ProductId), Order = order });
-                //}
-                //await _context.SaveChangesAsync();
                 order.Customer = _context.Customers.Find(CustomerId);
                 order.IsShoppingCart = false;//the order already confirmed
                 order.TotalPrice = 0;
