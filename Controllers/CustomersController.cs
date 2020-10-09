@@ -58,7 +58,22 @@ namespace BSOS.Controllers
 
             return View(customer);
         }
+        public async Task<IActionResult> MyAccount()
+        {
+            if (Customer.CustomersId.Count==0)
+            {
+                return NotFound();
+            }
+            int id = Customer.CustomersId.Peek();
+            var customer = await _context.Customers.Include(o => o.Orders)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
 
+            return View("Details",customer);
+        }
         // GET: Customers/Create
         public IActionResult Create()
         {
@@ -78,19 +93,25 @@ namespace BSOS.Controllers
                 customer.Orders.Add(new Order() { IsShoppingCart = true });
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
+                if (Customer.CustomersId.Count == 0)
+                    Customer.CustomersId = new Stack<int>();
+                Customer.CustomersId.Push(customer.Id);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
         }
-        public void AddToCart(int CustomerId,int ProductId)
+        public void AddToCart(int ProductId)
         {
-               var Customer = _context.Customers.Include(o => o.Orders).ThenInclude(po=>po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+               if (Customer.CustomersId.Count == 0)
+               { }
+               int CustomerId = Customer.CustomersId.Peek();
+               var customer = _context.Customers.Include(o => o.Orders).ThenInclude(po=>po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
                var Product = _context.Products.Find(ProductId);
-               if(Customer!=null&&Product!=null)
+               if(customer!=null&&Product!=null)
                 {
-                    if (Customer.Orders.Count == 0 ||Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault()==null)
-                        Customer.Orders.Add(new Order() { IsShoppingCart = true });
-                    var ShoppingCart = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
+                    if (customer.Orders.Count == 0 ||customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault()==null)
+                        customer.Orders.Add(new Order() { IsShoppingCart = true });
+                    var ShoppingCart = customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
                     if (ShoppingCart.ProductOrders == null)
                         ShoppingCart.ProductOrders = new List<ProductOrder>();
                     if(ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault()!=null)
@@ -100,37 +121,37 @@ namespace BSOS.Controllers
                             ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount += 1;
                             _context.ProductOrder.Update(ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault());
                         }
-                }
+                    }
                     else
                         ShoppingCart.ProductOrders.Add(new ProductOrder() { ProductId = ProductId, Product = _context.Products.Find(ProductId), Order = null, Amount = 1 });
-                    _context.Customers.Update(Customer);
-                    _context.SaveChanges();
+                    _context.Customers.Update(customer);
                 }
         }
-        public void DeleteFromCart(int CustomerId, int ProductId)
+        public void DeleteFromCart(int ProductId)
         {
-            var Customer = _context.Customers.Include(o => o.Orders)
+            int CustomerId = Customer.CustomersId.Peek();
+            var customer = _context.Customers.Include(o => o.Orders)
                 .ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
             var Product = _context.Products.Find(ProductId);
             var AllProductsInShoppingCart = _context.ProductOrder.Include(o => o.Order)
                 .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart));
             var ProductOrder = AllProductsInShoppingCart.Where(po => po.ProductId == ProductId).FirstOrDefault();
-            if (Customer != null && Product != null&& ProductOrder!=null)
+            if (customer != null && Product != null&& ProductOrder!=null)
             {
-                var ShoppingCart = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
+                var ShoppingCart = customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
                 if (ProductOrder.Amount>1)
                 {
                     ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount -= 1;
                     ProductOrder.Amount -= 1;
                     _context.ProductOrder.Update(ProductOrder);
                     _context.SaveChanges();
-                    _context.Customers.Update(Customer);
+                    _context.Customers.Update(customer);
                     _context.SaveChanges();
                 }
                 else
                 {
                     ShoppingCart.ProductOrders.Remove(ProductOrder);
-                    _context.Customers.Update(Customer);
+                    _context.Customers.Update(customer);
                     _context.SaveChanges();
                     if (_context.ProductOrder.Include(o => o.Order)
                     .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart)).FirstOrDefault() != null)
@@ -145,9 +166,10 @@ namespace BSOS.Controllers
             }
         }
 
-        public IActionResult GetShoppingCart(int CustomerId)
+        public IActionResult GetShoppingCart()
         {
-            var Customer = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+            int CustomerId = Customer.CustomersId.Peek();
+            var customer = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
             var ListOfOrders = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).ThenInclude(p => p.Product).Where(c => c.Id == CustomerId).Select(c => c.Orders).FirstOrDefault();
             if(ListOfOrders!=null)
             {
@@ -162,10 +184,6 @@ namespace BSOS.Controllers
             }
             return View("Error");
         }
-
-
-
-
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -249,7 +267,12 @@ namespace BSOS.Controllers
         {
             foreach (var c in _context.Customers)
                 if (c.Email.Equals(email) && c.Password.Equals(password))
+                {
+                    if (Customer.CustomersId == null)
+                        Customer.CustomersId = new Stack<int>();
+                    Customer.CustomersId.Push(c.Id);
                     return View("Details", c);
+                }
             return View("Error");//have to create view for mistakes with the log-in
         }
 
@@ -293,7 +316,7 @@ namespace BSOS.Controllers
                          select c;
             return View(await result.ToListAsync());
         }
-        public async Task<IActionResult> MoneyThatWasPayed()
+        public IActionResult MoneyThatWasPayed()
         {
             double NewTotal = 0;
             var result = (from c in _context.Customers.Include(c => c.Orders) where(1<0) select new ObjectResult()).ToList();//create empty result table

@@ -63,5 +63,6 @@ namespace BSOS.Models
         public ICollection<Order> Orders { get; set; }//Order history
 
         public Role Role { get; set; }
+        public static Stack<int> CustomersId { get; set; }
     }
 }
