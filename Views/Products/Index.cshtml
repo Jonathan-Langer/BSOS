@@ -10,21 +10,6 @@
 <br />
 <br />
 
-<head>
-    <style>
-        #DesignList1 {
-            column-count: 2;
-            column-gap: 40px;
-            column-rule: 5px double #4169E1;
-        }
-        #DesignList2 {
-            column-fill:balance;
-            column-width: 40px;
-            column-gap: 40px;
-            column-rule: 5px double #4169E1;
-        }
-    </style>
-</head>
 
 
 <!-- Product -->
@@ -32,34 +17,43 @@
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                <form asp-action="ShowAllProducts">
-                    <button type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" @*data-filter="*"*@>
-                        All Products
-                    </button>
-                </form>
-                <form asp-action="SortByCategory" asp-route-Category="Women">
-                    <button type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" @*data-filter=".women"*@>
-                        Women
-                    </button>
-                </form>
-                <form asp-action="SortByCategory" asp-route-Category="Men">
-                    <button type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" @*data-filter=".men"*@>
-                        Men
-                    </button>
-                </form>
-
-                <form asp-action="SortByCategory" asp-route-Category="Shoes">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
-                        Shoes
-                    </button>
-                </form>
-
-                <form asp-action="SortByCategory" asp-route-Category="Accessories">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
-                        Accessories
-                    </button>
-                </form>
-              
+                <ul>
+                    <li>
+                        <form asp-action="ShowAllProducts">
+                            <button name="cat" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                All Products
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form asp-action="SortByCategory" asp-route-Category="Women">
+                            <button name="cat" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                Women
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form asp-action="SortByCategory" asp-route-Category="Men">
+                            <button name="cat" cat="Men" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                Men
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form asp-action="SortByCategory" asp-route-Category="Shoes">
+                            <button name="cat" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                Shoes
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form asp-action="SortByCategory" asp-route-Category="Accessories">
+                            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                                Accessories
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
 
             <div class="flex-w flex-c-m m-tb-10">
@@ -78,7 +72,7 @@
 
             <!-- Search product -->
             <div class="dis-none panel-search w-full p-t-10 p-b-15">
-                <form asp-action="Search" asp-route-name="Name">
+                <form asp-action="Search" asp-route-name=Name asp-route-category=cat>
                     <div class="bor8 dis-flex p-l-15">
                         <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
                             <i class="zmdi zmdi-search"></i>
@@ -94,7 +88,7 @@
                     <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
                         <div class="filter-col1 p-r-15 p-b-27">
                             <div class="mtext-102 cl2 p-b-15">
-                                Sort By Brand
+                                Brand
                             </div>
                             <ul>
                                 @foreach (var p in (from pro in Model select pro.Brand).Distinct())
@@ -107,104 +101,76 @@
                                 }
                             </ul>
                         </div>
+
                         <div class="filter-col2 p-r-15 p-b-27">
                             <div class="mtext-102 cl2 p-b-15">
-                                Price
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                        All
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $0.00 - $50.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $50.00 - $100.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $100.00 - $150.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $150.00 - $200.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $200.00+
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-col3 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Color
+                                Size
                             </div>
                             <ul>
-                                @foreach (var p in (from pro in Model select pro.Color).Distinct())
+                                @foreach (var p in (from pro in Model select pro.Size).Distinct())
                                 {
-                                    <li>
-                                        <input type="radio" name="color" value="@p">
-                                        <label class="filter-link stext-106 trans-04">@p</label>
-                                        <br>
+                                    <li class="p-b-6">
+                                        <a class="filter-link stext-106 trans-04 filter-link-active">
+                                            <input class="fs-15 lh-12 m-r-6" type="radio" name="size" value="@p">
+                                            <label class="filter-link stext-106 trans-04" for="size">@p</label>
+                                        </a>
                                     </li>
                                 }
                             </ul>
-                        </div>
+                         </div>
 
-                        <div class="filter-col4 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Tags
+                            <div class="filter-col3 p-r-15 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Color
+                                </div>
+                                <ul>
+                                    @foreach (var p in (from pro in Model select pro.Color).Distinct())
+                                    {
+                                        <li>
+                                            <input type="radio" name="color" value="@p">
+                                            <label class="filter-link stext-106 trans-04" for="color">@p</label>
+                                            <br>
+                                        </li>
+                                    }
+                                </ul>
                             </div>
 
-                            <div class="flex-w p-t-4 m-r--5">
-                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Fashion
-                                </a>
+                            <div class="filter-col4 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Tags
+                                </div>
 
-                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Lifestyle
-                                </a>
+                                <div class="flex-w p-t-4 m-r--5">
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Fashion
+                                    </a>
 
-                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Denim
-                                </a>
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Lifestyle
+                                    </a>
 
-                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Streetstyle
-                                </a>
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Denim
+                                    </a>
 
-                                <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-                                    Crafts
-                                </a>
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Streetstyle
+                                    </a>
+
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Crafts
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                        <br />
-                        <br />
-                        <button type="submit" class="btn btn-danger" asp-route-Brand="brand" asp-route-Size="size" asp-route-Color="color">Clear</button>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <br />
+                            <br />
+                            <button type="submit" class="btn btn-danger" asp-route-Brand="brand" asp-route-Size="size" asp-route-Color="color">Clear</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="row isotope-grid">
-            @{
-                var i = 1;
                 @foreach (var item in Model)
                 {
                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
@@ -213,9 +179,6 @@
                             <div class="block2-pic hov-img0">
                                 <!--Need to put a picture-->
                                 <img src="@item.Urlimage" />
-                                @*<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                    Quick View
-                                    </a>*@
                             </div>
 
                             <div class="block2-txt flex-w flex-t p-t-14">
@@ -238,9 +201,9 @@
                             </div>
                         </div>
                     </div>
-                }
-            }
+                 }
         </div>
+
 
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">
@@ -250,6 +213,7 @@
         </div>
     </div>
 </div>
+
 
 
 

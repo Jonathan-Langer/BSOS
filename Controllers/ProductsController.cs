@@ -28,14 +28,21 @@ namespace BSOS.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
-        public async Task<IActionResult> Search(string name, string Category)
+        public async Task<IActionResult> Search(string name, string category)
         {
             if (String.IsNullOrEmpty(name))
             {
                 return View("Index", _context.Products);
             }
-            var result = from pro in _context.Products where (pro.ProductName.Contains(name) && (pro.Category.Contains(Category))) select pro;
-            return View("Search", result);
+            var result = from pro in _context.Products where (pro.ProductName.Contains(name) && (pro.Category.Contains(category))) select pro;
+            if (category.Equals("Men"))
+            {
+                result = from pro
+                         in result
+                         where (!pro.Category.Contains("Women"))
+                         select pro;
+            }
+            return View("Index", result);
         }
 
         // GET: Products/Details/5

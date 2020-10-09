@@ -141,6 +141,28 @@ namespace BSOS.Controllers
                 }
             }
         }
+
+        public IActionResult GetShoppingCart(int CustomerId)
+        {
+            var Customer = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+            var ListOfOrders = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).ThenInclude(p => p.Product).Where(c => c.Id == CustomerId).Select(c => c.Orders).FirstOrDefault();
+            if(ListOfOrders!=null)
+            {
+                foreach (Order o in ListOfOrders)
+                {
+                    if (o.IsShoppingCart == true)
+                    {
+                        var result = o;
+                        return View("ShoppingCart", result);
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+
+
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -285,6 +307,13 @@ namespace BSOS.Controllers
                 result.Add(new ObjectResult() { FirstName = c.FirstName, LastName = c.LastName,Email=c.Email, Total = NewTotal });
             }
             return View(result.ToList());
+        }
+
+
+
+        public IActionResult ShopCart()
+        {
+            return View("ShoppingCart");
         }
     }
 
