@@ -205,5 +205,9 @@ namespace BSOS.Controllers
         {
             return _context.Orders.Any(e => e.OrderID == id);
         }
+        public IActionResult ShoppingCart()
+        {
+            return View("ShoppingCart");
+        }
     }
 }

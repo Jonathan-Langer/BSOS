@@ -21,8 +21,8 @@ namespace BSOS.Data
                 new Customer{FirstName="Shay",LastName="Horovitz",Gender="Male",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09"),Orders=new List<Order>()},
                 new Customer{FirstName="Moshe",LastName="Dovav",Gender="Male",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14"),Orders=new List<Order>()},
                 new Customer{FirstName="Dror",LastName="Cohen",Gender="Male",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25"),Orders=new List<Order>()},
-                new Customer{FirstName="Efrat",LastName="Man-Tzur:)",Gender="Female",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18"),Orders=new List<Order>()},
-                new Customer{FirstName="Yafa",LastName="Benin",Gender="Female",PhoneNumber="0584975511",Email="YafaIsTheQueen@gmail.com",Password="1234",Country="Israel",City="Ramat Gan",ZipCode="1234567",Address="Kinor 17",Birthday=DateTime.Parse("1965-11-29"),Orders=new List<Order>()}
+                new Customer{FirstName="Efrat",LastName="Man-Tzur:)",Gender="Women",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18"),Orders=new List<Order>()},
+                new Customer{FirstName="Yafa",LastName="Benin",Gender="Women",PhoneNumber="0584975511",Email="YafaIsTheQueen@gmail.com",Password="1234",Country="Israel",City="Ramat Gan",ZipCode="1234567",Address="Kinor 17",Birthday=DateTime.Parse("1965-11-29"),Orders=new List<Order>()}
             };
             foreach (Customer c in customers)
             {

@@ -28,13 +28,13 @@ namespace BSOS.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
-        public async Task<IActionResult> Search(string name)
+        public async Task<IActionResult> Search(string name, string Category)
         {
             if (String.IsNullOrEmpty(name))
             {
                 return View("Index", _context.Products);
             }
-            var result = from pro in _context.Products where (pro.ProductName.Contains(name)) select pro;
+            var result = from pro in _context.Products where (pro.ProductName.Contains(name) && (pro.Category.Contains(Category))) select pro;
             return View("Search", result);
         }
 
@@ -187,7 +187,7 @@ namespace BSOS.Controllers
                          where (pro.Color.Equals(Color))
                          select pro;
             }
-            return View(await result.ToListAsync());
+            return View("Index", await result.ToListAsync());
         }
         public async Task<IActionResult> AmountOfOrdersPerProduct()
         {
@@ -223,6 +223,35 @@ namespace BSOS.Controllers
         public int AmountOfComments(Product pro)
         {
             return pro.Comments.Count();
+        }
+        public async Task<IActionResult> SortByCategory(string Category)
+        {
+            var result = from p
+                     in _context.Products
+                         select p;
+            if (!String.IsNullOrEmpty(Category) && Category != "category")
+            {
+                result = from pro
+                         in result
+                         where (pro.Category.Contains(Category))
+                         select pro;
+            }
+            if(Category.Equals("Men"))
+            {
+                result = from pro
+                         in result
+                         where (!pro.Category.Contains("Women"))
+                         select pro;
+            }
+            return View("Index",await result.ToListAsync());
+        }
+
+        public async Task<IActionResult> ShowAllProducts()
+        {
+            var result = from p
+                   in _context.Products
+                         select p;
+            return View("Index", await result.ToListAsync());
         }
     }
 }
