@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BSOS.Data;
 using BSOS.Models;
 using System.Web;
+using System.Net;
 using Microsoft.AspNetCore.Session;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -24,6 +25,8 @@ namespace BSOS.Controllers
         }
 
         // GET: Customers
+
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Customers.ToListAsync());

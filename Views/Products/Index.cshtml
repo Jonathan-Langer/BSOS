@@ -17,43 +17,32 @@
     <div class="container">
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                <ul>
-                    <li>
                         <form asp-action="ShowAllProducts">
                             <button name="cat" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                                 All Products
                             </button>
                         </form>
-                    </li>
-                    <li>
                         <form asp-action="SortByCategory" asp-route-Category="Women">
                             <button name="cat" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                                 Women
                             </button>
                         </form>
-                    </li>
-                    <li>
                         <form asp-action="SortByCategory" asp-route-Category="Men">
                             <button name="cat" cat="Men" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                                 Men
                             </button>
                         </form>
-                    </li>
-                    <li>
                         <form asp-action="SortByCategory" asp-route-Category="Shoes">
                             <button name="cat" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                                 Shoes
                             </button>
                         </form>
-                    </li>
-                    <li>
+
                         <form asp-action="SortByCategory" asp-route-Category="Accessories">
                             <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                                 Accessories
                             </button>
                         </form>
-                    </li>
-                </ul>
             </div>
 
             <div class="flex-w flex-c-m m-tb-10">
