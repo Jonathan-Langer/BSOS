@@ -7,8 +7,9 @@
 
 
 <h4>Customer</h4>
-<hr />
-<div class="row">
+<br />
+<br />
+@*<div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -72,7 +73,7 @@
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -112,6 +113,16 @@
                         <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="gender" placeholder="Your Gender">
                         <img class="how-pos4 pointer-none">
                     </div>
+                    <div class="size-204 respon6-next">
+                        <div class="rs1-select2 bor8 bg0">
+                            <select class="js-select2" name="gender">
+                                <option>Choose an option</option>
+                                <option>@Html.DisplayFor(model => model.Color)</option>
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                    </div>
+
 
                     <div class="bor8 m-b-20 how-pos4-parent">
                         <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="phoneNumber" placeholder="Your Phone Number">
