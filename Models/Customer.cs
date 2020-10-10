@@ -64,5 +64,6 @@ namespace BSOS.Models
 
         public Role Role { get; set; }
         public static Stack<int> CustomersId { get; set; }
+
     }
 }

@@ -11,7 +11,7 @@ namespace BSOS.Data
     {
         public static void Initialize(BSOSContext context)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
             if (context.Customers.Any())
             {
                 return; //DB is full already
