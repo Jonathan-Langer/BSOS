@@ -260,8 +260,15 @@
         </script>
         <script>
             function initMap() {
-                var options = { zoom: 12, center: { lat: 42.361145, lng: -71.057083 } };
-                var map = new google.maps.Map(document.getElementById('map'), options);
+                //map option
+                var options = { zoom: 8, center: { lat: 42.4648, lng: -70.9495 } };
+                //new map
+                var Map = new google.maps.Map(document.getElementById('map'), options);
+                //add marker
+                var marker = new google.maps.Marker({
+                    poition: { lat: 42.4668, lng: -70.9495 },
+                    map: Map
+                });
             }
         </script>
         <!--===============================================================================================-->
