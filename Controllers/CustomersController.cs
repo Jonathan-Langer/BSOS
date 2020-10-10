@@ -143,8 +143,6 @@ namespace BSOS.Controllers
                        
                     _context.Customers.Update(customer);
                     _context.SaveChanges();
-
-               
                 }
             return View("~/Views/Products/Index.cshtml", _context.Products.ToList());
         }

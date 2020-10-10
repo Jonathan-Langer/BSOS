@@ -52,20 +52,20 @@ namespace BSOS.Controllers
             return View(order);
         }
 
-        // GET: Orders/Create
-        public IActionResult Create(int? CustomerId)
-        {
-            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
-            ViewData["IdCustomer"] = CustomerId;
-            ViewBag.OrderDate = DateTime.Now;
-            return View();
-        }
+        //// GET: Orders/Create
+        //public IActionResult Create(int? CustomerId)
+        //{
+        //    ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
+        //    ViewData["IdCustomer"] = CustomerId;
+        //    ViewBag.OrderDate = DateTime.Now;
+        //    return View();
+        //}
 
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost] 
-        [ValidateAntiForgeryToken]
+        //[HttpPost] 
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create()
         {
             int CustomerId = Customer.CustomersId.Peek();
@@ -85,18 +85,26 @@ namespace BSOS.Controllers
                 }
                 _context.Orders.Update(order);
                 await _context.SaveChangesAsync();
-                order.ProductOrders = new List<ProductOrder>();
+                //order.ProductOrders = new List<ProductOrder>();
                 foreach (var po in order.ProductOrders)
                 {
-                        order.ProductOrders.Add(new ProductOrder() { ProductId = po.ProductId, OrderId = order.OrderID, Product = _context.Products.Find(po.ProductId), Order = _context.Orders.Find(order.OrderID) });
+                    po.Order = order;
                 }
                 _context.Orders.Update(order);
                 await _context.SaveChangesAsync();
                 _context.Customers.Update(order.Customer);
                 await _context.SaveChangesAsync();
                 foreach (var po in order.ProductOrders)
-                    _context.Products.Find(po.ProductId).ProductOrders.Add(_context.ProductOrder.Find(po.Product, order.OrderID));
+                    _context.Products.Find(po.ProductId).ProductOrders.Add(po);
                 await _context.SaveChangesAsync();
+                foreach(var po in order.ProductOrders)
+                {
+                    if ((_context.ProductOrder.Find(po.ProductId, po.OrderId) == null))
+                        _context.ProductOrder.Add(po);
+                    else
+                        _context.ProductOrder.Update(po);
+                    _context.SaveChanges();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View("PaymentApproval",new Order() { IsShoppingCart = false }) ;
