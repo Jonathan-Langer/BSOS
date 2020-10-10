@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+
 }
 
 <head>
@@ -258,7 +259,7 @@
 <!-- Product Detail -->
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
-        <form asp-controller="Customers" asp-action="AddToCart" asp-route-ProductId="@Model.ProductId" asp-route-Amount=amount>
+        <form asp-controller="Customers" asp-action="AddToCart" asp-route-ProductId="@Model.ProductId" asp-route-Amount="amount">
             <div class="row">
                 <div class="col-md-6 col-lg-7 p-b-30">
                     <div class="p-l-25 p-r-30 p-lr-0-lg">
@@ -336,11 +337,15 @@
                                             <i class="fs-16 zmdi zmdi-minus"></i>
                                         </div>
 
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1" name="amount">
+                                        <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
 
                                         <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                             <i class="fs-16 zmdi zmdi-plus"></i>
                                         </div>
+                                        <label name="amount">
+                                            Amount:  
+                                        </label>
+                                        <input name="amount" value="1" />
                                     </div>
 
                                     <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
@@ -516,12 +521,23 @@
     </div>
 </section>
 
+<!--===============================================================================================-->
 <script src="~/DesignShop/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/bootstrap/js/popper.js"></script>
 <script src="~/DesignShop/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/DesignShop/vendor/select2/select2.min.js"></script>
+<script>
+    $(".js-select2").each(function () {
+        $(this).select1({
+            minimumResultsForSearch: 20,
+            dropdownParent: $(this).next('.dropDownSelect2')
+        });
+    })
+</script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/daterangepicker/moment.min.js"></script>
 <script src="~/DesignShop/vendor/daterangepicker/daterangepicker.js"></script>
@@ -531,58 +547,54 @@
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/parallax100/parallax100.js"></script>
 <script>
-        $('.parallax100').parallax100();
+    $('.parallax100').parallax100();
 </script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 <script>
-		$('.gallery-lb').each(function() { // the containers for all your galleries
-			$(this).magnificPopup({
-		        delegate: 'a', // the selector for gallery item
-		        type: 'image',
-		        gallery: {
-		        	enabled:true
-		        },
-		        mainClass: 'mfp-fade'
-		    });
-		});
+    $('.gallery-lb').each(function () { // the containers for all your galleries
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+                enabled: true
+            },
+            mainClass: 'mfp-fade'
+        });
+    });
 </script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/sweetalert/sweetalert.min.js"></script>
 <script>
-		/*---------------------------------------------*/
+   
+    /*---------------------------------------------*/
 
-		$('.js-addcart-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
-			});
+    $('.js-addcart-detail').each(function () {
+        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+        $(this).on('click', function () {
+            swal(nameProduct, "is added to cart !", "success");
         });
-        
+    });
 
 </script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script>
-		$('.js-pscroll').each(function(){
-			$(this).css('position','relative');
-			$(this).css('overflow','hidden');
-			var ps = new PerfectScrollbar(this, {
-				wheelSpeed: 1,
-				scrollingThreshold: 1000,
-				wheelPropagation: false,
-			});
+    $('.js-pscroll').each(function () {
+        $(this).css('position', 'relative');
+        $(this).css('overflow', 'hidden');
+        var ps = new PerfectScrollbar(this, {
+            wheelSpeed: 1,
+            scrollingThreshold: 1000,
+            wheelPropagation: false,
+        });
 
-			$(window).on('resize', function(){
-				ps.update();
-			})
-		});
+        $(window).on('resize', function () {
+            ps.update();
+        })
+    });
 </script>
 <!--===============================================================================================-->
 <script src="~/DesignShop/js/main.js"></script>
-
-
-
-

@@ -1,7 +1,85 @@
-﻿
+﻿@model IEnumerable<BSOS.Models.Customer>
+@using BSOS.Controllers;
 @{
     ViewData["Title"] = "MoneyThatWasPayed";
 }
 
 <h1>MoneyThatWasPayed</h1>
 
+<head>
+    <title>Details</title>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
+    <!--===============================================================================================-->
+
+</head>
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<h3 class="ltext-109 cl2 p-b-28">
+    How many orders did each customer order?
+</h3>
+
+<section class="stext-117 cl6 p-b-26">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    The money spent by the customer
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Data as List<ObjectsResult>)
+            {
+                <tr>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                     <td>
+                         @item.Total
+                     </td>                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

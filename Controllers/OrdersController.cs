@@ -56,7 +56,7 @@ namespace BSOS.Controllers
         public IActionResult Create(int? CustomerId)
         {
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
-            ViewData["IdCustomer"] = CustomerId; 
+            ViewData["IdCustomer"] = CustomerId;
             ViewBag.OrderDate = DateTime.Now;
             return View();
         }
@@ -64,16 +64,17 @@ namespace BSOS.Controllers
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost] 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int CustomerId)
+        public async Task<IActionResult> Create()
         {
-            var Customer = _context.Customers.Include(o => o.Orders)
+            int CustomerId = Customer.CustomersId.Peek();
+            var customer = _context.Customers.Include(o => o.Orders)
                     .ThenInclude(po => po.ProductOrders).ThenInclude(p => p.Product)
                     .Where(c => c.Id == CustomerId).FirstOrDefault();
-            if (Customer!=null)
+            if (customer!=null)
             {
-                var order = Customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
+                var order = customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
                 order.Customer = _context.Customers.Find(CustomerId);
                 order.IsShoppingCart = false;//the order already confirmed
                 order.TotalPrice = 0;
@@ -98,7 +99,7 @@ namespace BSOS.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(new Order() { IsShoppingCart = false }) ;
+            return View("PaymentApproval",new Order() { IsShoppingCart = false }) ;
         }
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)

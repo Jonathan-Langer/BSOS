@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BSOS.Models;
+using Microsoft.AspNetCore.Authorization;
+using BSOS.Controllers;
 
 namespace BSOS.Controllers
 {
@@ -21,10 +23,12 @@ namespace BSOS.Controllers
         {
             return View("Shop");
         }
+        [AllowAnonymous]
         public IActionResult LogIn()
         {
             return View("Login");
         }
+
         public IActionResult About()
         {
             return View("About");

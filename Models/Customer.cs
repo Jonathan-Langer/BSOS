@@ -62,8 +62,18 @@ namespace BSOS.Models
 
         public ICollection<Order> Orders { get; set; }//Order history
 
-        public Role Role { get; set; }
+        public Role Roles { get; set; }
         public static Stack<int> CustomersId { get; set; }
-
+        public string WhoIsIt()
+        {
+            if (this.Roles.ToString() == "Admin")
+            {
+                return ("IsAdmin");
+            }
+            else
+            {
+                return ("IsCustomer");
+            }
+        }
     }
 }

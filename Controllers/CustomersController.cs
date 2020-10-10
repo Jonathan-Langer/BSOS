@@ -10,6 +10,7 @@ using BSOS.Models;
 using System.Web;
 using System.Net;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
@@ -29,6 +30,7 @@ namespace BSOS.Controllers
         {
             return View(await _context.Customers.ToListAsync());
         }
+
         public async Task<IActionResult> Search(string firstName)
         {
             if (String.IsNullOrEmpty(firstName))
@@ -56,6 +58,7 @@ namespace BSOS.Controllers
 
             return View(customer);
         }
+
         public async Task<IActionResult> MyAccount()
         {
             if (Customer.CustomersId.Count==0)
@@ -72,6 +75,7 @@ namespace BSOS.Controllers
 
             return View("Details",customer);
         }
+
         // GET: Customers/Create
         public IActionResult Create()
         {
@@ -98,35 +102,51 @@ namespace BSOS.Controllers
             }
             return View(customer);
         }
-        public void AddToCart(int ProductId, int Amount)
+        public IActionResult AddToCart(int ProductId, int Amount)
         {
-               if (Customer.CustomersId.Count == 0)
+               if (Customer.CustomersId == null)
                {
-                   
+                   return View("~/Views/Home/Login.cshtml");
                }
                int CustomerId = Customer.CustomersId.Peek();
                var customer = _context.Customers.Include(o => o.Orders).ThenInclude(po=>po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
                var Product = _context.Products.Find(ProductId);
                if(customer!=null&&Product!=null)
                 {
-                    if (customer.Orders.Count == 0 ||customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault()==null)
-                        customer.Orders.Add(new Order() { IsShoppingCart = true });
+                if (customer.Orders.Count == 0 || customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault() == null)
+                    customer.Orders.Add(new Order() { IsShoppingCart = true, TotalPrice = 0 }) ;
                     var ShoppingCart = customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
                     if (ShoppingCart.ProductOrders == null)
                         ShoppingCart.ProductOrders = new List<ProductOrder>();
                     if(ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault()!=null)
                     {
+                        
                         if (ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount >= 1)
                         {
+
                             ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount += Amount;
                             _context.ProductOrder.Update(ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault());
+                            ShoppingCart.TotalPrice += Product.Price * Amount;
+                            _context.SaveChanges();
+                             _context.Orders.Update(ShoppingCart);
+                            _context.SaveChanges();
                         }
                     }
                     else
-                        ShoppingCart.ProductOrders.Add(new ProductOrder() { ProductId = ProductId, Product = _context.Products.Find(ProductId), Order = null, Amount = 1 });
+                    {
+                    ShoppingCart.ProductOrders.Add(new ProductOrder() { ProductId = ProductId, Product = _context.Products.Find(ProductId), Order = null, Amount = 1 });
+
+                        ShoppingCart.TotalPrice += Product.Price * Amount;
+                        _context.Orders.Update(ShoppingCart);
+                         _context.SaveChanges();
+                    }
+                       
                     _context.Customers.Update(customer);
-                _context.SaveChanges();
+                    _context.SaveChanges();
+
+               
                 }
+            return View("~/Views/Products/Index.cshtml", _context.Products.ToList());
         }
         public void DeleteFromCart(int ProductId)
         {
@@ -143,16 +163,22 @@ namespace BSOS.Controllers
                 if (ProductOrder.Amount>1)
                 {
                     ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount -= 1;
-                    ProductOrder.Amount -= 1;
+                    ProductOrder.Amount -=1;
                     _context.ProductOrder.Update(ProductOrder);
                     _context.SaveChanges();
                     _context.Customers.Update(customer);
+                    _context.SaveChanges();
+                    _context.Orders.Update(ShoppingCart);
                     _context.SaveChanges();
                 }
                 else
                 {
                     ShoppingCart.ProductOrders.Remove(ProductOrder);
+                    _context.ProductOrder.Remove(ProductOrder);
+                    _context.SaveChanges();
                     _context.Customers.Update(customer);
+                    _context.SaveChanges();
+                    _context.Orders.Update(ShoppingCart);
                     _context.SaveChanges();
                     if (_context.ProductOrder.Include(o => o.Order)
                     .Where(po => (po.Order.CustomerId == CustomerId && po.Order.IsShoppingCart)).FirstOrDefault() != null)
@@ -319,18 +345,11 @@ namespace BSOS.Controllers
             }
             return View(await result.ToListAsync());
         }
-        public async Task<IActionResult> CountOrders()// query that give us the customers who had at least one order and how many orders they did
-        {
-            var result = from c in _context.Customers.Include(o => o.Orders)
-                         where c.Orders.Count > 0
-                         orderby c.Orders.Count descending
-                         select c;
-            return View(await result.ToListAsync());
-        }
+
         public IActionResult MoneyThatWasPayed()
         {
             double NewTotal = 0;
-            var result = (from c in _context.Customers.Include(c => c.Orders) where(1<0) select new ObjectResult()).ToList();//create empty result table
+            var result = (from c in _context.Customers.Include(c => c.Orders) where(1<0) select new ObjectsResult()).ToList();//create empty result table
             foreach (var c in _context.Customers.Include(c=>c.Orders))
             {
                 NewTotal = 0;
@@ -341,23 +360,10 @@ namespace BSOS.Controllers
                         NewTotal += o.TotalPrice;
                     }
                 }
-                result.Add(new ObjectResult() { FirstName = c.FirstName, LastName = c.LastName,Email=c.Email, Total = NewTotal });
+                result.Add(new ObjectsResult() { FirstName = c.FirstName, LastName = c.LastName,Email=c.Email, Total = NewTotal });
             }
+            ViewBag.Data = result;
             return View(result.ToList());
-        }
-
-        public string WhoIsIt(int CustomerId)
-        {
-            var Customer = _context.Customers.Where(c => c.Id == CustomerId).FirstOrDefault();
-            if (Customer.Role.ToString() == "Admin")
-            {
-                return ("IsAdmin");
-            }
-            else if (Customer.Role.ToString() == "Customer")
-            {
-                return ("IsCustomer");
-            }
-            return ("Error");
         }
 
         public string GetEmail(int CustomerId)
@@ -372,7 +378,7 @@ namespace BSOS.Controllers
         }
     }
 
-    internal class ObjectResult
+    public class ObjectsResult
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
