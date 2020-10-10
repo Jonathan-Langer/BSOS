@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.EntityFrameworkCore.Storage;
 using SQLitePCL;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace BSOS.Controllers
 {
@@ -196,35 +198,9 @@ namespace BSOS.Controllers
             }
             return View("Index", await result.ToListAsync());
         }
-        public async Task<IActionResult> AmountOfOrdersPerProduct()
-        {
-            int Count;
-            var result = await (from p in _context.Products where (1 < 0) select new ObjectResult()).ToListAsync();//create empty result table
-            foreach (var p in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
-            {
-                Count = 0;
-                foreach (var c in _context.Customers.Include(c => c.Orders).ThenInclude(po => po.ProductOrders))
-                {
-                    if (c.Orders == null)
-                        continue;
-                    foreach (var o in c.Orders)
-                    {
-                        if (o == null)
-                            continue;
-                        foreach (var po in o.ProductOrders)
-                            if (po.ProductId == p.ProductId)
-                                ++Count;
-                    }
-                }
-                result.Add(new ObjectResult() { Brand = p.Brand, ProductName = p.ProductName, price = p.Price, count = Count });
-            }
-            return View(result.ToList());
-        }
         internal class ObjectResult
         {
             public string Brand { get; set; }
-            public string ProductName { get; set; }
-            public double price { get; set; }
             public int count { get; set; }
         }
         public int AmountOfComments(Product pro)
@@ -259,6 +235,61 @@ namespace BSOS.Controllers
                    in _context.Products
                          select p;
             return View("Index", await result.ToListAsync());
+        }
+        [HttpGet]
+        public ActionResult Statistics()
+        {
+            //statistic 1- how many orders every customer had made, there is only one shopping cart
+            ICollection<Stat> statistic1 = new Collection<Stat>();
+            var result1 = from c in _context.Customers.Include(o => o.Orders)
+                         where (c.Orders.Count-1) > 0
+                         orderby (c.Orders.Count) descending
+                         select c;
+            foreach (var v in result1)
+            {
+                statistic1.Add(new Stat(v.FirstName, v.Orders.Count()));
+            }
+
+            ViewBag.data = statistic1;
+            //finish first statistic
+            //statistic 2- which brand the customers prefer to order
+            ICollection<Stat> statistic2 = new Collection<Stat>();
+
+            int Count;
+            var result2 = (from p in _context.Products where (1 < 0) select new ObjectResult()).ToList();//create empty result table
+            foreach (var pro in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
+            {
+                Count = 0;
+                if (pro == null)
+                    continue;
+                foreach (var po in pro.ProductOrders)
+                {
+                    if (po == null)
+                        continue;
+                    if (po.Product.Brand == pro.Brand)
+                        ++Count;
+                }
+                result2.Add(new ObjectResult() { Brand = pro.Brand, count = Count });
+            }
+            foreach (var v in result2)
+            {
+                if(v.count>0)
+                    statistic2.Add(new Stat(v.Brand, v.count));
+            }
+
+            ViewBag.data2 = statistic2;
+
+            return View();
+        }
+    }
+    public class Stat
+    {
+        public string Key;
+        public int Values;
+        public Stat(string key, int values)
+        {
+            Key = key;
+            Values = values;
         }
     }
 }
