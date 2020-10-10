@@ -57,7 +57,7 @@
 
                     <div class="right-top-bar flex-w h-full">
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            Help & FAQs
+                            BSOS-Only the best for you!
                         </a>
 
                         <a asp-controller="Home" asp-action="LogIn" class="flex-c-m trans-04 p-lr-25">
@@ -69,7 +69,7 @@
                         </a>
 
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
+                            NIS
                         </a>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                             </li>
 
                             <li>
-                                <a href="contact.html">Contact</a>
+                                <a asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
                             <li>
                                 <a asp-controller="Home" asp-action="LogIn">Log In</a>
@@ -115,16 +115,10 @@
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </div>
-
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
-
-                        <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-                            <i class="zmdi zmdi-favorite-outline"></i>
+                        <a asp-controller="Customers" asp-action="GetShoppingCart">
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                                <i class="zmdi zmdi-shopping-cart"></i>
+                            </div>
                         </a>
                     </div>
                 </nav>
@@ -132,21 +126,6 @@
         </div>
 
 
-        <!-- Modal Search -->
-        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-            <div class="container-search-header">
-                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="~/DesignShop/images/icons/icon-close2.png" alt="CLOSE">
-                </button>
-
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
-                </form>
-            </div>
-        </div>
     </header>
 
     @RenderBody()
@@ -162,26 +141,20 @@
 
                     <ul>
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Women" class="stext-107 cl7 hov-cl1 trans-04">
                                 Women
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men" class="stext-107 cl7 hov-cl1 trans-04">
                                 Men
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes" class="stext-107 cl7 hov-cl1 trans-04">
                                 Shoes
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Watches
                             </a>
                         </li>
                     </ul>
@@ -189,36 +162,35 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Help
+                        Our Principles
                     </h4>
 
                     <ul>
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Track Order
+                                Good Quality Of Products
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Returns
+                                Best Products
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shipping
+                                Free and Fast Shipping
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                FAQs
+                                Great Service
                             </a>
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
                         GET IN TOUCH
@@ -227,20 +199,6 @@
                     <p class="stext-107 cl7 size-201">
                         Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
                     </p>
-
-                    <div class="p-t-27">
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-pinterest-p"></i>
-                        </a>
-                    </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
@@ -255,7 +213,7 @@
                         </div>
 
                         <div class="p-t-18">
-                            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+                            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" asp-controller="Customers" asp-action="Create">
                                 Subscribe
                             </button>
                         </div>

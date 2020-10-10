@@ -33,6 +33,10 @@ namespace BSOS.Controllers
         {
             return View("About");
         }
+        public IActionResult Contact()
+        {
+            return View("Contact");
+        }
         public IActionResult Privacy()
         {
             return View();
