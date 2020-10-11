@@ -99,9 +99,20 @@
                                 <a asp-controller="Customers" asp-action="Index">Customers</a>
                                 <ul class="sub-menu">
                                     <li><a asp-controller="Customers" asp-action="MoneyThatWasPayed">see the customer's expenses</a></li>
+                                    <li><a asp-controller="Customers" asp-action="Filter">Search Customers By Parameters</a></li>
                                 </ul>
                             </li>
-
+                            <li class="label1" data-label1="hot">
+                                <a asp-controller="Customers" asp-action="GetShoppingCart">My Shopping Cart</a>
+                            </li>
+                            @{
+                                if (Customer.CustomersId != null)
+                                {
+                                    <li>
+                                        <a asp-controller="Customers" asp-action="RecommendProducts" asp-route-CustomerId="@Customer.CustomersId.Peek()">My suggestions</a>
+                                    </li>
+                                }
+                            }
                             <li>
                                 <a asp-controller="Products" asp-action="Statistics">Statistics</a>
                             </li>

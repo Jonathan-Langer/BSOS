@@ -305,7 +305,7 @@ namespace BSOS.Controllers
                     else
                         Customer.IsManager = false;
                     //return View("~/Views/Home/Shop.cshtml",c);
-                    return View(c);
+                    return View("WelcomeUser",c);
                 }
             ViewBag.IsAdmin = "Customer";
             ViewBag.Message = "wrong details";
@@ -360,8 +360,8 @@ namespace BSOS.Controllers
         public IActionResult MoneyThatWasPayed()
         {
             double NewTotal = 0;
-            var result = (from c in _context.Customers.Include(c => c.Orders) where(1<0) select new ObjectsResult()).ToList();//create empty result table
-            foreach (var c in _context.Customers.Include(c=>c.Orders))
+            var result = (from c in _context.Customers.Include(c => c.Orders) where (1 < 0) select new ObjectsResult()).ToList();//create empty result table
+            foreach (var c in _context.Customers.Include(c => c.Orders))
             {
                 NewTotal = 0;
                 if (c.Orders != null)
@@ -371,10 +371,10 @@ namespace BSOS.Controllers
                         NewTotal += o.TotalPrice;
                     }
                 }
-                result.Add(new ObjectsResult() { FirstName = c.FirstName, LastName = c.LastName,Email=c.Email, Total = NewTotal });
+                result.Add(new ObjectsResult() { FirstName = c.FirstName, LastName = c.LastName, Email = c.Email, Total = NewTotal });
             }
             ViewBag.Data = result;
-            return View(result.ToList());
+            return View(result.ToList().OrderByDescending(c => c.Total));
         }
 
         public string GetEmail(int CustomerId)
@@ -433,14 +433,13 @@ namespace BSOS.Controllers
             public int Count { get; set; }
             public Product pro { get; set; }
         }
+        public class ObjectsResult
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Email { get; set; }
+            public double Total { get; set; }
+        }
 
-    }
-
-    public class ObjectsResult
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public double Total { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BSOS.Models.Customer>
+﻿@model IEnumerable<BSOS.Controllers.CustomersController.ObjectsResult>
 @using BSOS.Controllers;
 @using BSOS.Models;
 @{
@@ -9,7 +9,7 @@
         Layout = "_Layout";
 }
 
-<h1>MoneyThatWasPayed</h1>
+
 
 <head>
     <title>Details</title>
@@ -68,7 +68,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.Data as List<ObjectsResult>)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -80,9 +80,9 @@
                     <td>
                         @item.Email
                     </td>
-                     <td>
-                         @item.Total
-                     </td>                    
+                    <td>
+                        @item.Total
+                    </td>
                 </tr>
             }
         </tbody>

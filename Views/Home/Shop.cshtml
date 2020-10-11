@@ -68,9 +68,16 @@
                             </li>
 
                             <li class="label1" data-label1="hot">
-                                <a asp-controller="Customers" asp-action="GetShoppingCart">Your Shopping Cart</a>
+                                <a asp-controller="Customers" asp-action="GetShoppingCart">My Shopping Cart</a>
                             </li>
-
+                            @{
+                                if (Customer.CustomersId != null)
+                                {
+                                    <li>
+                                        <a asp-controller="Customers" asp-action="RecommendProducts" asp-route-CustomerId="@Customer.CustomersId.Peek()">My suggestions</a>
+                                    </li>
+                                }
+                            }
                             <li>
                                 <a asp-controller="Home" asp-action="About">About</a>
                             </li>
