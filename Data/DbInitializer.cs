@@ -18,11 +18,11 @@ namespace BSOS.Data
             }
             var customers = new Customer[]
             {
-                new Customer{FirstName="Shay",LastName="Horovitz",Gender="Male",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09"),Orders=new List<Order>()},
-                new Customer{FirstName="Moshe",LastName="Dovav",Gender="Male",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14"),Orders=new List<Order>()},
-                new Customer{FirstName="Dror",LastName="Cohen",Gender="Male",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25"),Orders=new List<Order>()},
-                new Customer{FirstName="Efrat",LastName="Man-Tzur:)",Gender="Women",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18"),Orders=new List<Order>()},
-                new Customer{FirstName="Yafa",LastName="Benin",Gender="Women",PhoneNumber="0584975511",Email="YafaIsTheQueen@gmail.com",Password="1234",Country="Israel",City="Ramat Gan",ZipCode="1234567",Address="Kinor 17",Birthday=DateTime.Parse("1965-11-29"),Orders=new List<Order>()}
+                new Customer{FirstName="Shay",LastName="Horovitz",Gender="Male",PhoneNumber="0543918224",Email="Shay.horo@gmail.com",Password="1234",Country="Israel",City="Rishon Letziyon",ZipCode="1234567",Address="Rotchild 15",Birthday=DateTime.Parse("1977-04-09"),Orders=new List<Order>(),Roles=Role.Customer},
+                new Customer{FirstName="Moshe",LastName="Dovav",Gender="Male",PhoneNumber="0506522131",Email="moshedov5@gmail.com",Password="1234",Country="United States",City="La la land",ZipCode="4567891",Address="Avenue Bd 3491",Birthday=DateTime.Parse("1966-03-14"),Orders=new List<Order>(),Roles=Role.Customer},
+                new Customer{FirstName="Dror",LastName="Cohen",Gender="Male",PhoneNumber="0523798117",Email="drorcn105@gmail.com",Password="1234",Country="Israel",City="Tel Aviv",ZipCode="1234567",Address="Alanbi 15",Birthday=DateTime.Parse("2003-07-25"),Orders=new List<Order>(),Roles=Role.Admin},
+                new Customer{FirstName="Efrat",LastName="Man-Tzur:)",Gender="Women",PhoneNumber="0536678944",Email="efratmath12@gmail.com",Password="1234",Country="Israel",City="Holon",ZipCode="1234567",Address="HaDagan 13",Birthday=DateTime.Parse("1968-05-18"),Orders=new List<Order>(),Roles=Role.Admin},
+                new Customer{FirstName="Yafa",LastName="Benin",Gender="Women",PhoneNumber="0584975511",Email="YafaIsTheQueen@gmail.com",Password="1234",Country="Israel",City="Ramat Gan",ZipCode="1234567",Address="Kinor 17",Birthday=DateTime.Parse("1965-11-29"),Orders=new List<Order>(),Roles=Role.Customer}
             };
             foreach (Customer c in customers)
             {
@@ -65,30 +65,30 @@ namespace BSOS.Data
             //*****************************
 
             //****************************
-            //var orders = new Order[]
-            //{
-            //    new Order{OrderID=1,OrderDate=DateTime.Now,TotalPrice=260,CustomerId=11},
-            //    new Order{OrderID=1,OrderDate=DateTime.Now,TotalPrice=140,CustomerId=12},
-            //    new Order{OrderID=3,OrderDate=DateTime.Now,TotalPrice=70,CustomerId=13},
-            //    //new Order{OrderID=13,OrderDate=DateTime.Now,TotalPrice=,CustomerId=},
-            //    //new Order{OrderID=14,OrderDate=DateTime.Now,TotalPrice=,CustomerId=},
-            //    //new Order{OrderID=15,OrderDate=DateTime.Now,TotalPrice=,CustomerId=}
-            //};
+            var orders = new Order[]
+            {
+                new Order{OrderDate=DateTime.Parse("20/09/2020"),TotalPrice=60,CustomerId=customers[4].Id,Customer=customers[4],ProductOrders=new List<ProductOrder>() },
+                new Order{OrderDate=DateTime.Parse("25/08/2020"),TotalPrice=140,CustomerId=customers[1].Id,Customer=customers[1],ProductOrders=new List<ProductOrder>()},
+                new Order{OrderDate=DateTime.Parse("06/09/2020"),TotalPrice=85,CustomerId=customers[0].Id,Customer=customers[0],ProductOrders=new List<ProductOrder>()},
+            };
+            var productOrders = new ProductOrder[]
+            {
+                new ProductOrder{ProductId=products[17].ProductId,OrderId=orders[0].OrderID,Product=products[17],Order=orders[0],Amount=1},
+                new ProductOrder{ProductId=products[1].ProductId,OrderId=orders[1].OrderID,Product=products[1],Order=orders[1]},
+                new ProductOrder{ProductId=products[4].ProductId,OrderId=orders[2].OrderID,Product=products[4],Order=orders[2]},
+                new ProductOrder{ProductId=products[4].ProductId,OrderId=orders[2].OrderID,Product=products[4],Order=orders[2]},
+            };
+            orders[0].ProductOrders.Add(productOrders[0]);
+            orders[1].ProductOrders.Add(productOrders[1]);
+            orders[2].ProductOrders.Add(productOrders[2]);
+            orders[2].ProductOrders.Add(productOrders[3]);
             //foreach (Order o in orders)
             //{
             //    context.Orders.Add(o);
             //}
             //context.SaveChanges();
             ////*****************************
-            //var productOrders = new ProductOrder[]
-            //{
-            //    new ProductOrder{ProductId=8,OrderId=1},
-            //    new ProductOrder{ProductId=9,OrderId=1},
-            //    new ProductOrder{ProductId=9,OrderId=2},
-            //    new ProductOrder{ProductId=10,OrderId=3},
-            //    //new ProductOrder{ProductId=9,OrderId=13},
-            //    //new ProductOrder{ProductId=10,OrderId=13}
-            //};
+
             //foreach (ProductOrder po in productOrders)
             //{
             //    context.ProductOrder.Add(po);

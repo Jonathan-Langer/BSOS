@@ -61,9 +61,9 @@ namespace BSOS.Controllers
 
         public async Task<IActionResult> MyAccount()
         {
-            if (Customer.CustomersId.Count==0)
+            if (Customer.CustomersId==null||Customer.CustomersId.Count==0)
             {
-                return NotFound();
+                return View("~/Views/Home/Login.cshtml");
             }
             int id = Customer.CustomersId.Peek();
             var customer = await _context.Customers.Include(o => o.Orders)
@@ -193,7 +193,7 @@ namespace BSOS.Controllers
 
         public IActionResult GetShoppingCart()
         {
-            if(Customer.CustomersId==null)
+            if(Customer.CustomersId==null|| Customer.CustomersId.Count==0)
             {
                 return View("~/Views/Home/Login.cshtml");
             }
@@ -301,7 +301,9 @@ namespace BSOS.Controllers
                         Customer.CustomersId = new Stack<int>();
                     Customer.CustomersId.Push(c.Id);
                     if (c.Roles == 0)
-                        ViewBag.IsAdmin = "Admin";
+                        Customer.IsManager = true;
+                    else
+                        Customer.IsManager = false;
                     //return View("~/Views/Home/Shop.cshtml",c);
                     return View("Details", c);
                 }
@@ -313,7 +315,7 @@ namespace BSOS.Controllers
         {
             while (Customer.CustomersId.Count > 0)
                 Customer.CustomersId.Pop();
-            ViewBag.IsAdmin = null;
+            Customer.IsManager = false;
             return View();
         }
         public string GetFirstName(int id)

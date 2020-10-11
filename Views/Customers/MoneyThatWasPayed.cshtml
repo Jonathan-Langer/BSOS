@@ -1,7 +1,12 @@
 ﻿@model IEnumerable<BSOS.Models.Customer>
 @using BSOS.Controllers;
+@using BSOS.Models;
 @{
     ViewData["Title"] = "MoneyThatWasPayed";
+    if (Customer.IsManager)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "_Layout";
 }
 
 <h1>MoneyThatWasPayed</h1>

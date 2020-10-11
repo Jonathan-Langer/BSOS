@@ -1,5 +1,5 @@
 ﻿@model BSOS.Models.Customer
-
+@using BSOS.Models;
 @{
     ViewBag.name = Html.DisplayFor(m=>m.FirstName);
     ViewData["Title"] = "Shop";
@@ -78,9 +78,20 @@
                                 <a asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
 
-                            <li>
-                                <a asp-controller="Home" asp-action="LogIn">Log in</a>
-                            </li>
+                            @{
+                                if (Customer.CustomersId == null || Customer.CustomersId.Count == 0)
+                                {
+                                    <li>
+                                        <a asp-controller="Home" asp-action="LogIn">Log In</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-controller="Customers" asp-action="LogOut">Log Out</a>
+                                    </li>
+                                }
+                            }
                             <li>
                                 <a asp-controller="Customers" asp-action="MyAccount"> </a>
                             </li>

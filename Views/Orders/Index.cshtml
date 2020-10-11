@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<BSOS.Models.Order>
-
+@using BSOS.Models;
 
 @{
     ViewData["Title"] = "Index";
+    if (Customer.IsManager)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "_Layout";
 }
 <br />
 <br />

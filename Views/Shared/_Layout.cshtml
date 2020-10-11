@@ -1,5 +1,6 @@
-﻿@{
-        Layout = null;
+﻿@using BSOS.Models;
+@{
+    Layout = null;
 }
 
 <head>
@@ -59,7 +60,7 @@
                             BSOS-Only the best for you!
                         </a>
 
-                        <a asp-controller="Home" asp-action="LogIn" class="flex-c-m trans-04 p-lr-25">
+                        <a asp-controller="Customers" asp-action="MyAccount" class="flex-c-m trans-04 p-lr-25">
                             My Account
                         </a>
 
@@ -103,12 +104,20 @@
                             <li>
                                 <a asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
-                            <li>
-                                <a asp-controller="Home" asp-action="LogIn">Log In</a>
-                            </li>
-                            <li>
-                                <a>@*Hello @Model.GetEmail(Customer.CustomersId.Peek())*@</a>
-                            </li>
+                            @{
+                                if (Customer.CustomersId == null||Customer.CustomersId.Count==0)
+                                {
+                                    <li>
+                                        <a asp-controller="Home" asp-action="LogIn">Log In</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-controller="Customers" asp-action="LogOut">Log Out</a>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </div>
 

@@ -1,9 +1,13 @@
-﻿
+﻿@using BSOS.Models;
+@using BSOS.Controllers;
 @{
     ViewBag.Title = "statistics";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    if (Customer.IsManager)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "_Layout";
 }
-@using BSOS.Controllers
 
 <br />
 <br />

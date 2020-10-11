@@ -1,6 +1,10 @@
-﻿
+﻿@using BSOS.Models;
 @{
     ViewData["Title"] = "Contact";
+    if (Customer.IsManager)
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    else
+        Layout = "_Layout";
 }
 
 <!DOCTYPE html>
