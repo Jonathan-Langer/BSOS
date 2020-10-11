@@ -305,7 +305,7 @@ namespace BSOS.Controllers
                     else
                         Customer.IsManager = false;
                     //return View("~/Views/Home/Shop.cshtml",c);
-                    return View("Details", c);
+                    return View(c);
                 }
             ViewBag.IsAdmin = "Customer";
             ViewBag.Message = "wrong details";

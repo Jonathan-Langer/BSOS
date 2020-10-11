@@ -82,6 +82,8 @@ namespace BSOS.Data
             orders[1].ProductOrders.Add(productOrders[1]);
             orders[2].ProductOrders.Add(productOrders[2]);
             orders[2].ProductOrders.Add(productOrders[3]);
+
+
             //foreach (Order o in orders)
             //{
             //    context.Orders.Add(o);
