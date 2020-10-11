@@ -409,7 +409,6 @@ namespace BSOS.Controllers
         //        }
         //    }
         }
-    }
 
     public class ObjectsResult
     {

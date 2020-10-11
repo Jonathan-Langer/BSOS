@@ -42,13 +42,13 @@
 <!-- breadcrumb -->
 <div class="container">
     <section class="stext-117 cl6 p-b-26">
-        <a asp-controller="Customers" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
+        <a asp-controller="Products" asp-action="IndexManager" class="stext-109 cl8 hov-cl1 trans-04">
+            All Products
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
 
-        <a asp-controller="Customers" asp-action="Search" class="stext-109 cl8 hov-cl1 trans-04">
-            Search a customer
+        <a asp-controller="Products" asp-action="Search" class="stext-109 cl8 hov-cl1 trans-04">
+            Search a product
             <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
         </a>
     </section>
@@ -108,9 +108,9 @@
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit Your Product Details</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details Of The Product </a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete The Product</a>
                     </td>
                 </tr>
             }

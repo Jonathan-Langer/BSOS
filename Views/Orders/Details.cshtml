@@ -43,15 +43,13 @@
 <br />
 <br />
 <h5 class="ltext-109 cl2 p-b-28">
-    Details Of the account: @Html.DisplayFor(Model => Model.FirstName)  @Html.DisplayFor(Model => Model.LastName)
+    Details Of the order
 </h5>
 
 <div id="grid">
     <section class="stext-117 cl6 p-b-26">
         <div>
             <br />
-
-
             <div>
                 <br />
                 <dl class="row">
@@ -159,10 +157,6 @@
                     }
                 </tbody>
             </table>
-            <div>
-                <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-                <a asp-action="Index">Back to List</a>
-            </div>
         </div>
      </section>
 </div>
