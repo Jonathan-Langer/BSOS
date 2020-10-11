@@ -47,7 +47,7 @@
 
 
 
-
+    <br />
     <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -87,26 +87,22 @@
                                                     <img src="@po.Product.Urlimage" alt="IMG">
                                                 </div>
                                             </td>
-                                            <td class="column-2">@po.Product.ProductName</td>
+                                            <td class="column-2"><a asp-controller="Products" asp-action="Details" asp-route-id="@po.ProductId">@po.Product.ProductName</a></td>
                                             <td class="column-3">@po.Product.Price</td>
                                             <td class="column-4">
-										        <div class="wrap-num-product flex-w m-l-auto m-r-0">
-											       <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                       <button type="submit" asp-action="DeleteFromCart" asp-route-ProductId="@po.ProductId">
-                                                           <i class="fs-16 zmdi zmdi-minus"></i>
-                                                       </button>
-											       </div>
-											       <input class="mtext-104 cl3 txt-center num-product" type="number" value="@po.Amount">
-											          <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                          <button type="submit" asp-action="AddToCart" asp-route-ProductId="@po.ProductId" asp-route-Amount="1">
-                                                              <i class="fs-16 zmdi zmdi-plus"></i>
-                                                          </button>
-											          </div>
-										        </div>
+							                        <input style="margin-left:80px" type="button" class="mtext-104 cl3 txt-center num-product" value="@po.Amount">
+                                                    <a asp-controller="Customers" asp-action="DeleteFromCart" asp-route-ProductId="@po.ProductId">delete</a>
 									        </td>
+                                            <td class="column-5">
+                                                @{ 
+                                                    var a = po.Amount;
+                                                    var b = po.Product.Price;
+                                                    ViewBag.SubPrice = a * b;
+                                                }
+                                                @ViewBag.SubPrice
+                                            </td>
                                     </tr>
                                     }
-
                                 }
                             </table>
                         </div>

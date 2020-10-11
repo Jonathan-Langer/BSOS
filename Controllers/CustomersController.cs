@@ -102,7 +102,7 @@ namespace BSOS.Controllers
             }
             return View(customer);
         }
-        public IActionResult AddToCart(int ProductId, int Amount)
+        public IActionResult AddToCart(int ProductId)
         {
                if (Customer.CustomersId == null)
                {
@@ -123,10 +123,9 @@ namespace BSOS.Controllers
                         
                         if (ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount >= 1)
                         {
-
-                            ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount += Amount;
+                            ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount += 1;
                             _context.ProductOrder.Update(ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault());
-                            ShoppingCart.TotalPrice += Product.Price * Amount;
+                            ShoppingCart.TotalPrice += Product.Price;
                             _context.SaveChanges();
                              _context.Orders.Update(ShoppingCart);
                             _context.SaveChanges();
@@ -136,7 +135,7 @@ namespace BSOS.Controllers
                     {
                     ShoppingCart.ProductOrders.Add(new ProductOrder() { ProductId = ProductId, Product = _context.Products.Find(ProductId), Order = null, Amount = 1 });
 
-                        ShoppingCart.TotalPrice += Product.Price * Amount;
+                        ShoppingCart.TotalPrice += Product.Price;
                         _context.Orders.Update(ShoppingCart);
                          _context.SaveChanges();
                     }
@@ -146,7 +145,7 @@ namespace BSOS.Controllers
                 }
             return View("~/Views/Products/Index.cshtml", _context.Products.ToList());
         }
-        public void DeleteFromCart(int ProductId)
+        public IActionResult DeleteFromCart(int ProductId)
         {
             int CustomerId = Customer.CustomersId.Peek();
             var customer = _context.Customers.Include(o => o.Orders)
@@ -161,7 +160,8 @@ namespace BSOS.Controllers
                 if (ProductOrder.Amount>1)
                 {
                     ShoppingCart.ProductOrders.Where(p => p.ProductId == ProductId).FirstOrDefault().Amount -= 1;
-                    ProductOrder.Amount -=1;
+                    ShoppingCart.TotalPrice -= Product.Price;
+                    //ProductOrder.Amount -=1;
                     _context.ProductOrder.Update(ProductOrder);
                     _context.SaveChanges();
                     _context.Customers.Update(customer);
@@ -188,7 +188,11 @@ namespace BSOS.Controllers
                         }
                     }
                 }
+                if (ShoppingCart.ProductOrders == null||ShoppingCart.ProductOrders.Count==0)
+                    return View("EmptyShopCart");
+                return GetShoppingCart();
             }
+            return View("Error");
         }
 
         public IActionResult GetShoppingCart()
@@ -305,7 +309,7 @@ namespace BSOS.Controllers
                     else
                         Customer.IsManager = false;
                     //return View("~/Views/Home/Shop.cshtml",c);
-                    return View(c);
+                    return View("WelcomeUser",c);
                 }
             ViewBag.IsAdmin = "Customer";
             ViewBag.Message = "wrong details";
