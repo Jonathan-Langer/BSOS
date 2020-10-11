@@ -309,6 +309,13 @@ namespace BSOS.Controllers
             ViewBag.Message = "wrong details";
             return View("~/Views/Home/Login.cshtml");//have to create view for mistakes with the log-in
         }
+        public IActionResult Logout()
+        {
+            while (Customer.CustomersId.Count > 0)
+                Customer.CustomersId.Pop();
+            ViewBag.IsAdmin = null;
+            return View();
+        }
         public string GetFirstName(int id)
         {
             var Customer = _context.Customers.Where(c => c.Id == id).FirstOrDefault();
