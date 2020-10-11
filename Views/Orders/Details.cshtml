@@ -4,117 +4,165 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<head>
+    <title>Details</title>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
+    <!--===============================================================================================-->
 
-<div>
-    <h4>Order</h4>
-    <br />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-    </dl>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.ZipCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.DisplayFor(model => model.Customer.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.City)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.ZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.Customer.PhoneNumber)
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.ProductOrders)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Size)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Price)
-                </td>
-            </tr>
+    <style>
+        #grid {
+            margin-left: 20px;
         }
-    </tbody>
-</table>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    </style>
+</head>
+<br />
+<br />
+<br />
+<br />
+<br />
+<h5 class="ltext-109 cl2 p-b-28">
+    Details Of the account: @Html.DisplayFor(Model => Model.FirstName)  @Html.DisplayFor(Model => Model.LastName)
+</h5>
+
+<div id="grid">
+    <section class="stext-117 cl6 p-b-26">
+        <div>
+            <br />
+
+
+            <div>
+                <br />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.OrderDate)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.TotalPrice)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TotalPrice)
+                    </dd>
+                </dl>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Country)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.City)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.ZipCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.PhoneNumber)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.Country)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.ZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Customer.PhoneNumber)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductOrders.First().Product.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Size)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductOrders.First().Product.Price)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductOrders)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.ProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Size)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Price)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.OrderID">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+     </section>
 </div>
