@@ -71,13 +71,21 @@
                                 <a asp-controller="Customers" asp-action="GetShoppingCart">My Shopping Cart</a>
                             </li>
                             @{
-                                if (Customer.CustomersId != null)
+                                if (Customer.CustomersId == null || Customer.CustomersId.Count == 0)
+                                {
+                                    <li>
+                                        <a asp-controller="Customers" asp-action="RecommendProducts">Popular Products</a>
+                                    </li>
+
+                                }
+                                else
                                 {
                                     <li>
                                         <a asp-controller="Customers" asp-action="RecommendProducts" asp-route-CustomerId="@Customer.CustomersId.Peek()">My suggestions</a>
                                     </li>
                                 }
                             }
+
                             <li>
                                 <a asp-controller="Home" asp-action="About">About</a>
                             </li>
@@ -256,7 +264,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                                <a  asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                <a asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
                             </div>
@@ -280,7 +288,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-                                <a  asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                <a asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
                             </div>
@@ -409,7 +417,7 @@
                 <div class="col-sm-6 col-md-4 p-b-40">
                     <div class="blog-item">
                         <div class="hov-img0">
-                            <a href="blog-detail.html">
+                            <a href="#">
                                 <img src="~/DesignShop/images/blog-01.jpg" alt="IMG-BLOG">
                             </a>
                         </div>
@@ -453,7 +461,7 @@
                 <div class="col-sm-6 col-md-4 p-b-40">
                     <div class="blog-item">
                         <div class="hov-img0">
-                            <a href="blog-detail.html">
+                            <a href="#">
                                 <img src="~/DesignShop/images/blog-02.jpg" alt="IMG-BLOG">
                             </a>
                         </div>
@@ -482,13 +490,13 @@
                             </div>
 
                             <h4 class="p-b-12">
-                                <a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
-                                    The Great Big List of Men’s Gifts for the Holidays
+                                <a href="#" class="mtext-101 cl2 hov-cl1 trans-04">
+                                    Know Your Size
                                 </a>
                             </h4>
 
                             <p class="stext-108 cl6">
-                                Nullam scelerisque, lacus sed consequat laoreet, dui enim iaculis leo, eu viverra ex nulla in tellus. Nullam nec ornare tellus, ac fringilla lacus. Ut sit ame
+                                Online shopping comes with a lot of risks and receiving the wrong size after waiting days for your package to arrive is probably more hurtful than any heartbreak. Truth be told: ASOS' in-house labels tend to run slightly bigger than normal US sizing. It's best to reference the model's measurements on each product page before dumping a bunch of clothes in your cart. If the measurements don't help, watching the catwalk videos can help you to see how a product moves IRL.
                             </p>
                         </div>
                     </div>
@@ -526,13 +534,13 @@
                             </div>
 
                             <h4 class="p-b-12">
-                                <a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
-                                    5 Winter-to-Spring Fashion Trends to Try Now
+                                <a href="#" class="mtext-101 cl2 hov-cl1 trans-04">
+                                    Figure Out Your Favorite Brands
                                 </a>
                             </h4>
 
                             <p class="stext-108 cl6">
-                                Proin nec vehicula lorem, a efficitur ex. Nam vehicula nulla vel erat tincidunt, sed hendrerit ligula porttitor. Fusce sit amet maximus nunc
+                                Once you get the hang of BSOS, you'll start to gravitate towards certain brands. Aside from my favorite European labels, one of my go-to brands on the site is BSOS's own BSOS Design. BSOS Design has over 12,000 women's pieces that run the gamut from everyday wardrobe staple -to special occasion dresses, handbags, and shoes, that give off a luxe feel but at a super affordable price.
                             </p>
                         </div>
                     </div>
@@ -540,6 +548,7 @@
             </div>
         </div>
     </section>
+
 
     <!--Weather(Web Service)-->
 
@@ -568,13 +577,13 @@
                         </li>
 
                         <li class="p-b-10">
-                            <a  asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men" class="stext-107 cl7 hov-cl1 trans-04">
                                 Men
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a  asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes" class="stext-107 cl7 hov-cl1 trans-04">
                                 Shoes
                             </a>
                         </li>
@@ -607,19 +616,18 @@
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                               Great Service
+                                Great Service
                             </a>
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
                         GET IN TOUCH
                     </h4>
 
                     <p class="stext-107 cl7 size-201">
-                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                        Any questions? Let us know in BSOS Center 8th floor, Yigal Alon 65 St, Tel Aviv.
                     </p>
                 </div>
 
@@ -630,12 +638,12 @@
 
                     <form>
                         <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="For those who do not have an account">
                             <div class="focus-input1 trans-04"></div>
                         </div>
 
                         <div class="p-t-18">
-                            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+                            <button asp-controller="Customers" asp-action="Create" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" asp-controller="Customers" asp-action="Create">
                                 Subscribe
                             </button>
                         </div>
