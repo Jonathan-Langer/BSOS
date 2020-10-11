@@ -37,7 +37,7 @@ namespace BSOS.Controllers
                 return View("Index", _context.Comment);
             }
             var result = from com in _context.Comment where (com.SentBy.Contains(sentBy)) select com;
-            return View("Search", result);
+            return View("Search", result.ToList());
         }
 
         // GET: Comments/Details/5

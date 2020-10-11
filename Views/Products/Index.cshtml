@@ -26,23 +26,23 @@
                         All Products
                     </button>
                 </form>
-                <form asp-action="SortByCategory" asp-route-Category="Women">
+                <form asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Women">
                     <button name="cat" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Women
                     </button>
                 </form>
-                <form asp-action="SortByCategory" asp-route-Category="Men">
+                <form asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men">
                     <button name="cat" cat="Men" type="submit" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Men
                     </button>
                 </form>
-                <form asp-action="SortByCategory" asp-route-Category="Shoes">
+                <form asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes">
                     <button name="cat" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Shoes
                     </button>
                 </form>
 
-                <form asp-action="SortByCategory" asp-route-Category="Accessories">
+                <form asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Accessories">
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                         Accessories
                     </button>
@@ -180,13 +180,6 @@
                                 <span class="stext-105 cl3">
                                     @Html.DisplayFor(modelItem => item.ProductName)
                                 </span>
-                            </div>
-
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    <img class="icon-heart1 dis-block trans-04" src="~/DesignShop/images/icons/icon-heart-01.png" alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="~/DesignShop/images/icons/icon-heart-02.png" alt="ICON">
-                                </a>
                             </div>
                         </div>
                     </div>

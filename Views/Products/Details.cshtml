@@ -53,7 +53,8 @@
 
 
 <br />
-<br />                
+<br />   
+<br />             
 <!-- breadcrumb -->
 <div class="container">
     <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -264,7 +265,7 @@
                                             <div class="size-207">
                                                 <div class="flex-w flex-sb-m p-b-17">
                                                     <span class="mtext-107 cl2 p-r-20">
-                                                        @Html.DisplayFor(modelItem => item.SentBy)
+                                                        @Html.DisplayFor(modelItem => item.Title)
                                                     </span>
                                                     <span class="mtext-107 cl2 p-r-20">
                                                         @Html.DisplayFor(modelItem => item.Posted)
@@ -272,7 +273,7 @@
                                                 </div>
 
                                                 <p class="stext-102 cl6">
-                                                    @Html.DisplayFor(modelItem => item.Title)
+                                                    @Html.DisplayFor(modelItem => item.SentBy)
                                                 </p>
                                                 <p class="stext-102 cl6">
                                                     @Html.DisplayFor(modelItem => item.Body)

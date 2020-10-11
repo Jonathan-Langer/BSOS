@@ -44,10 +44,6 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                    @if(ViewBag.Message== "wrong details")
-                    {
-                        <div class="text-danger">@ViewBag.Message</div>
-                    }
                     <form class="login100-form validate-form">
                         <span class="login100-form-title p-b-49">
                             Login
@@ -82,15 +78,19 @@
                                 </button>
                             </div>
                         </div>
-
-
+                        <br />
+                        <br />
+                        @if (ViewBag.Message == "wrong details")
+                        {
+                            <div class="text-danger">Your email or password are wrong, please check them again</div>
+                        }
                         <div class="flex-col-c p-t-155">
                             <span class="txt1 p-b-17">
                                 Don't have an account yet?
                             </span>
 
                             <a asp-controller="Customers" asp-action="Create" class="txt2">
-                                Sign Up to our website to start shopping 
+                                Sign Up to our website to start shopping
                             </a>
                         </div>
                     </form>

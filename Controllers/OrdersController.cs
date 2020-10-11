@@ -30,7 +30,7 @@ namespace BSOS.Controllers
                 return View("Index", _context.Orders);
             }
             var result = from o in _context.Orders where (o.OrderID.ToString().Contains(orderId)) select o;
-            return View("Search", result);
+            return View("Search", result.ToList());
         }
 
         // GET: Orders/Details/5
@@ -62,39 +62,45 @@ namespace BSOS.Controllers
             if (customer!=null)
             {
                 var order = customer.Orders.Where(o => o.IsShoppingCart).FirstOrDefault();
-                order.Customer = _context.Customers.Find(CustomerId);
-                order.IsShoppingCart = false;//the order already confirmed
-                order.TotalPrice = 0;
-                order.OrderDate = DateTime.Now;
-                foreach (var pro in order.ProductOrders)
+                if (order != null)
                 {
-                    order.TotalPrice += pro.Product.Price;
+                    order.Customer = _context.Customers.Find(CustomerId);
+                    order.IsShoppingCart = false;//the order already confirmed
+                    order.TotalPrice = 0;
+                    order.OrderDate = DateTime.Now;
+                    foreach (var pro in order.ProductOrders)
+                    {
+                        order.TotalPrice += pro.Product.Price;
+                    }
+                    _context.Orders.Update(order);
+                    await _context.SaveChangesAsync();
+                    //order.ProductOrders = new List<ProductOrder>();
+                    foreach (var po in order.ProductOrders)
+                    {
+                        po.Order = order;
+                    }
+                    _context.Orders.Update(order);
+                    await _context.SaveChangesAsync();
+                    _context.Customers.Update(order.Customer);
+                    await _context.SaveChangesAsync();
+                    foreach (var po in order.ProductOrders)
+                        _context.Products.Find(po.ProductId).ProductOrders.Add(po);
+                    await _context.SaveChangesAsync();
+                    foreach (var po in order.ProductOrders)
+                    {
+                        if ((_context.ProductOrder.Find(po.ProductId, po.OrderId) == null))
+                            _context.ProductOrder.Add(po);
+                        else
+                            _context.ProductOrder.Update(po);
+                        _context.SaveChanges();
+                    }
+                    ViewBag.orderId = order.OrderID;
+                    return View("PaymentApproval");
                 }
-                _context.Orders.Update(order);
-                await _context.SaveChangesAsync();
-                //order.ProductOrders = new List<ProductOrder>();
-                foreach (var po in order.ProductOrders)
+                else
                 {
-                    po.Order = order;
+                    return View("~/Views/Shared/Customers/EmptyShopCart.cshtml");
                 }
-                _context.Orders.Update(order);
-                await _context.SaveChangesAsync();
-                _context.Customers.Update(order.Customer);
-                await _context.SaveChangesAsync();
-                foreach (var po in order.ProductOrders)
-                    _context.Products.Find(po.ProductId).ProductOrders.Add(po);
-                await _context.SaveChangesAsync();
-                foreach(var po in order.ProductOrders)
-                {
-                    if ((_context.ProductOrder.Find(po.ProductId, po.OrderId) == null))
-                        _context.ProductOrder.Add(po);
-                    else
-                        _context.ProductOrder.Update(po);
-                    _context.SaveChanges();
-                }
-                ViewBag.orderId = order.OrderID;
-                return View("PaymentApproval");
-                //return RedirectToAction(nameof(Index));
             }
             return View("PaymentApproval",new Order() { IsShoppingCart = false }) ;
         }

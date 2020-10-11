@@ -65,7 +65,7 @@ namespace BSOS.Controllers
                          where (!pro.Category.Contains("Women"))
                          select pro;
             }
-            return View("Search", result);
+            return View("Search", result.ToList());
         }
 
 
@@ -103,7 +103,7 @@ namespace BSOS.Controllers
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexManager));
             }
             return View(product);
         }
@@ -128,7 +128,7 @@ namespace BSOS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Size,Brand,Color,Category")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,Price,Size,Brand,Color,Discription,Urlimage,Category")] Product product)
         {
             if (id != product.ProductId)
             {
@@ -153,7 +153,7 @@ namespace BSOS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexManager));
             }
             return View(product);
         }

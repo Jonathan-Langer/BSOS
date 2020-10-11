@@ -43,10 +43,10 @@
 <h1>All the products in the store at the moment</h1>
 <section class="stext-117 cl6 p-b-26">
     <p>
-        <a asp-action="Create">Add a new product to the store</a>
+        <a asp-controller="Products" asp-action="Create">Add a new product to the store</a>
     </p>
     <br />
-    <form asp-action="SearchManager">
+    <form asp-controller="Products" asp-action="SearchManager">
         <div class="col-md-4 col-lg-3 p-b-80">
             <div class="side-menu">
                 <label class="control-label mr-2">Enter the name of the product you are looking for</label>

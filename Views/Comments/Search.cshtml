@@ -7,71 +7,118 @@
     else
         Layout = "_Layout";
 }
+
+<head>
+    <title>Search</title>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/DesignShop/images/icons/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/DesignShop/css/main.css">
+    <!--===============================================================================================-->
+</head>
+
 <br />
 <br />
 <br />
 <br />
 <br />
-<h1>Search</h1>
-<a asp-action="Index">Comments-></a><a asp-action="Search">Search</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SentBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Posted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SentBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Posted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+
+
+<!-- breadcrumb -->
+<div class="container">
+    <section class="stext-117 cl6 p-b-26">
+        <a asp-controller="Comments" asp-action="Index" class="stext-109 cl8 hov-cl1 trans-04">
+            All Comments
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a asp-controller="Comments" asp-action="Search" class="stext-109 cl8 hov-cl1 trans-04">
+            Search a comment
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+    </section>
+</div>
+
+<section class="stext-117 cl6 p-b-26">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Body)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SentBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Posted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SentBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Posted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</section>

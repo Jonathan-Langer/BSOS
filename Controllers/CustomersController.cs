@@ -38,7 +38,7 @@ namespace BSOS.Controllers
                 return View("Index", _context.Customers);
             }
             var result = from cust in _context.Customers where (cust.FirstName.Contains(firstName)) select cust;
-            return View("Search", result);
+            return View("Search", result.ToList());
         }
 
         // GET: Customers/Details/5
@@ -91,14 +91,15 @@ namespace BSOS.Controllers
         {
             if (ModelState.IsValid)
             {
+                customer.Roles = Role.Customer;
                 customer.Orders = new List<Order>();
                 customer.Orders.Add(new Order() { IsShoppingCart = true });
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
-                if (Customer.CustomersId.Count == 0)
+                if (Customer.CustomersId == null || Customer.CustomersId.Count==0)
                     Customer.CustomersId = new Stack<int>();
                 Customer.CustomersId.Push(customer.Id);
-                return RedirectToAction(nameof(Index));
+                return View("~/Views/Home/Login.cshtml");
             }
             return View(customer);
         }
@@ -263,8 +264,19 @@ namespace BSOS.Controllers
                     {
                         throw;
                     }
+
+
                 }
-                return RedirectToAction(nameof(Index));
+                if(Customer.IsManager)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.Message = "Your New Details Were Updated";
+
+                    return Logout(); //if the customer changed the password
+                }
             }
             return View(customer);
         }
