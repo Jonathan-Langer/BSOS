@@ -300,10 +300,21 @@ namespace BSOS.Controllers
                     if (Customer.CustomersId == null)
                         Customer.CustomersId = new Stack<int>();
                     Customer.CustomersId.Push(c.Id);
+                    if (c.Roles == 0)
+                        ViewBag.IsAdmin = "Admin";
                     //return View("~/Views/Home/Shop.cshtml",c);
                     return View("Details", c);
                 }
-            return View("Error");//have to create view for mistakes with the log-in
+            ViewBag.IsAdmin = "Customer";
+            ViewBag.Message = "wrong details";
+            return View("~/Views/Home/Login.cshtml");//have to create view for mistakes with the log-in
+        }
+        public IActionResult Logout()
+        {
+            while (Customer.CustomersId.Count > 0)
+                Customer.CustomersId.Pop();
+            ViewBag.IsAdmin = null;
+            return View();
         }
         public string GetFirstName(int id)
         {

@@ -52,20 +52,7 @@ namespace BSOS.Controllers
             return View(order);
         }
 
-        //// GET: Orders/Create
-        //public IActionResult Create(int? CustomerId)
-        //{
-        //    ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
-        //    ViewData["IdCustomer"] = CustomerId;
-        //    ViewBag.OrderDate = DateTime.Now;
-        //    return View();
-        //}
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost] 
-        //[ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Create()
         {
             int CustomerId = Customer.CustomersId.Peek();
@@ -105,6 +92,7 @@ namespace BSOS.Controllers
                         _context.ProductOrder.Update(po);
                     _context.SaveChanges();
                 }
+                ViewBag.orderId = order.OrderID;
                 return View("PaymentApproval");
                 //return RedirectToAction(nameof(Index));
             }

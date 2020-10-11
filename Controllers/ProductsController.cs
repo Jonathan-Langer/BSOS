@@ -41,13 +41,13 @@ namespace BSOS.Controllers
                 return View("Index", _context.Products);
             }
             var result = from pro in _context.Products where (pro.ProductName.Contains(name)) select pro;
-            //if (category.Equals("Men"))
-            //{
-            //    result = from pro
-            //             in result
-            //             where (!pro.Category.Contains("Women"))
-            //             select pro;
-            //}
+            if (name.Equals("Men"))
+            {
+                result = from pro
+                         in result
+                         where (!pro.Category.Contains("Women"))
+                         select pro;
+            }
             return View("Index", result);
         }
 
@@ -58,13 +58,13 @@ namespace BSOS.Controllers
                 return View("Index", _context.Products);
             }
             var result = from pro in _context.Products where (pro.ProductName.Contains(name)) select pro;
-            //if (category.Equals("Men"))
-            //{
-            //    result = from pro
-            //             in result
-            //             where (!pro.Category.Contains("Women"))
-            //             select pro;
-            //}
+            if (name.Equals("Men"))
+            {
+                result = from pro
+                         in result
+                         where (!pro.Category.Contains("Women"))
+                         select pro;
+            }
             return View("Search", result);
         }
 
