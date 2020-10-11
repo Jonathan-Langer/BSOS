@@ -307,7 +307,7 @@ namespace BSOS.Controllers
                 }
             ViewBag.IsAdmin = "Customer";
             ViewBag.Message = "wrong details";
-            return View("~/Home/Login");//have to create view for mistakes with the log-in
+            return View("~/Views/Home/Login.cshtml");//have to create view for mistakes with the log-in
         }
         public string GetFirstName(int id)
         {
