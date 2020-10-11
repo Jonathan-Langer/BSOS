@@ -105,6 +105,7 @@ namespace BSOS.Controllers
                         _context.ProductOrder.Update(po);
                     _context.SaveChanges();
                 }
+                ViewBag.orderId = order.OrderID;
                 return View("PaymentApproval");
                 //return RedirectToAction(nameof(Index));
             }
