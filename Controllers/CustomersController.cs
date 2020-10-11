@@ -388,29 +388,53 @@ namespace BSOS.Controllers
             return View("ShoppingCart");
         }
 
-
-        //public IActionResult RecommendProducts(int? CustomerId, int ProductId)
-        //{
-        //    if(CustomerId!=null && CustomerId!=-1)
-        //    {
-        //        int Count;
-        //        var result = (from p in _context.Products where (1 < 0) select new ObjectsResult()).ToList();//create empty result table
-        //        foreach (var pro in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
-        //        {
-        //            Count = 0;
-        //            if (pro == null)
-        //                continue;
-        //            foreach (var po in pro.ProductOrders)
-        //            {
-        //                if (po == null)
-        //                    continue;
-        //                if (po.Product. == pro.)
-        //                    ++Count;
-        //            }
-        //            result.Add(new ObjectsResult() { Brand = pro.Brand, count = Count });
-        //        }
-        //    }
+        public IActionResult RecommendProducts(int? CustomerId)
+        {
+            int count = 0;
+            var result = (from p in _context.Products where (1 < 0) select new ML { }).ToList();
+            if (Customer.CustomersId != null && (_context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault()) != null)
+            {
+                var currentCustomer = _context.Customers.Include(o => o.Orders).ThenInclude(po => po.ProductOrders).Where(c => c.Id == CustomerId).FirstOrDefault();
+                foreach (var p in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
+                {
+                    count = 0;
+                    foreach (var o in currentCustomer.Orders)
+                    {
+                        foreach (var po in o.ProductOrders)
+                        {
+                            if (p.ProductId == po.ProductId)
+                            {
+                                count += po.Amount;
+                            }
+                        }
+                    }
+                    result.Add(new ML() { Count = count, pro = p });
+                }
+            }
+            else
+            {
+                foreach (var p in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
+                {
+                    count = 0;
+                    foreach (var po in _context.ProductOrder)
+                    {
+                        if (p.ProductId == po.ProductId)
+                        {
+                            count += po.Amount;
+                        }
+                    }
+                    result.Add(new ML() { Count = count, pro = p });
+                }
+            }
+            return View(result.ToList().OrderByDescending(p => p.Count).Take(3));
         }
+        public class ML
+        {
+            public int Count { get; set; }
+            public Product pro { get; set; }
+        }
+
+    }
 
     public class ObjectsResult
     {
