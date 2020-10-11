@@ -52,8 +52,8 @@
                 <nav class="limiter-menu-desktop p-l-45">
 
                     <!-- Logo desktop -->
-                    <a href="#" class="logo">
-                        <img src="~/DesignShop/images/icons/logo-01.png" alt="IMG-LOGO">
+                    <a asp-controller="Home" asp-action="Home" class="logo">
+                        <img src="https://cdn.discordapp.com/attachments/748574787890053181/764747001895452682/400f1317-aa37-485f-b1a8-17dc86a980d9_200x200.png" alt="IMG-LOGO">
                     </a>
 
                     <!-- Menu desktop -->
@@ -68,37 +68,34 @@
                             </li>
 
                             <li class="label1" data-label1="hot">
-                                <a asp-controller="Customers" asp-action="GetShoppingCart">Features</a>
+                                <a asp-controller="Customers" asp-action="GetShoppingCart">Your Shopping Cart</a>
                             </li>
 
                             <li>
                                 <a asp-controller="Home" asp-action="About">About</a>
                             </li>
-
                             <li>
-                                <a href="#">Contact</a>
+                                <a asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
+
                             <li>
                                 <a asp-controller="Home" asp-action="LogIn">Log in</a>
                             </li>
                             <li>
-                                <a asp-controller="Customers" asp-action="MyAccount">Hello @ViewBag.Name</a>
+                                <a asp-controller="Customers" asp-action="MyAccount"> </a>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m h-full">
-                        <div class="flex-c-m h-full p-r-24">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-                        </div>
 
                         <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
+                            <a asp-controller="Customers" asp-action="GetShoppingCart">
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </div>
+                            </a>
                         </div>
 
                         <div class="flex-c-m h-full p-lr-19">
@@ -111,21 +108,6 @@
             </div>
         </div>
 
-        <!-- Modal Search -->
-        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-            <div class="container-search-header">
-                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="~/DesignShop/images/icons/icon-close2.png" alt="CLOSE">
-                </button>
-
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
-                </form>
-            </div>
-        </div>
     </header>
 
     <!-- Sidebar -->
@@ -148,7 +130,7 @@
                     </li>
 
                     <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
+                        <a asp- class="stext-102 cl2 hov-cl1 trans-04">
                             My Account
                         </a>
                     </li>
@@ -234,90 +216,6 @@
     </aside>
 
 
-    <!-- Cart -->
-    <div class="wrap-header-cart js-panel-cart">
-        <div class="s-full js-hide-cart"></div>
-
-        <div class="header-cart flex-col-l p-l-65 p-r-25">
-            <div class="header-cart-title flex-w flex-sb-m p-b-8">
-                <span class="mtext-103 cl2">
-                    Your Cart
-                </span>
-
-                <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-                    <i class="zmdi zmdi-close"></i>
-                </div>
-            </div>
-
-            <div class="header-cart-content flex-w js-pscroll">
-                <ul class="header-cart-wrapitem w-full">
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="~/DesignShop/images/item-cart-01.jpg" alt="IMG">
-                        </div>
-
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                White Shirt Pleat
-                            </a>
-
-                            <span class="header-cart-item-info">
-                                1 x $19.00
-                            </span>
-                        </div>
-                    </li>
-
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="~/DesignShop/images/item-cart-02.jpg" alt="IMG">
-                        </div>
-
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                Converse All Star
-                            </a>
-
-                            <span class="header-cart-item-info">
-                                1 x $39.00
-                            </span>
-                        </div>
-                    </li>
-
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="~/DesignShop/images/item-cart-03.jpg" alt="IMG">
-                        </div>
-
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                Nixon Porter Leather
-                            </a>
-
-                            <span class="header-cart-item-info">
-                                1 x $17.00
-                            </span>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="w-full">
-                    <div class="header-cart-total w-full p-tb-40">
-                        Total: $75.00
-                    </div>
-
-                    <div class="header-cart-buttons flex-w w-full">
-                        <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                            View Cart
-                        </a>
-
-                        <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                            Check Out
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Slider -->
@@ -340,7 +238,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                                <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                <a  asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
                             </div>
@@ -364,7 +262,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-                                <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                <a  asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
                             </div>
@@ -388,7 +286,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-                                <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                <a asp-controller="Products" asp-action="Index" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
                             </div>
@@ -415,7 +313,7 @@
                             </span>
 
                             <span class="block1-info stext-102 trans-04">
-                                Spring 2018
+                                Summer 2020
                             </span>
                         </div>
 
@@ -440,7 +338,7 @@
                             </span>
 
                             <span class="block1-info stext-102 trans-04">
-                                Spring 2018
+                                Summer 2020
                             </span>
                         </div>
 
@@ -461,7 +359,7 @@
                     <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Accessories" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                         <div class="block1-txt-child1 flex-col-l">
                             <span class="block1-name ltext-102 trans-04 p-b-8">
-                                Bags
+                                Accessories
                             </span>
 
                             <span class="block1-info stext-102 trans-04">
@@ -646,26 +544,20 @@
 
                     <ul>
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Women" class="stext-107 cl7 hov-cl1 trans-04">
                                 Women
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a  asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Men" class="stext-107 cl7 hov-cl1 trans-04">
                                 Men
                             </a>
                         </li>
 
                         <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                            <a  asp-controller="Products" asp-action="SortByCategory" asp-route-Category="Shoes" class="stext-107 cl7 hov-cl1 trans-04">
                                 Shoes
-                            </a>
-                        </li>
-
-                        <li class="p-b-10">
-                            <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Watches
                             </a>
                         </li>
                     </ul>
@@ -673,31 +565,31 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Help
+                        Our Principles
                     </h4>
 
                     <ul>
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Track Order
+                                Good Quality Of Products
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Returns
+                                Best Products
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                Shipping
+                                Free and Fast Shipping
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                                FAQs
+                               Great Service
                             </a>
                         </li>
                     </ul>
@@ -711,20 +603,6 @@
                     <p class="stext-107 cl7 size-201">
                         Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
                     </p>
-
-                    <div class="p-t-27">
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-
-                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-                            <i class="fa fa-pinterest-p"></i>
-                        </a>
-                    </div>
                 </div>
 
                 <div class="col-sm-6 col-lg-3 p-b-50">

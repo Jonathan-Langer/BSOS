@@ -161,10 +161,9 @@
             </tbody>
         </table>
         <div>
-            <a href="/Orders/Create?CustomerId=@Model.Id">Make a new order</a> |
+            <a asp-controller="Products" asp-action="Index">Back to shop</a> |
             @*<a asp-controller="Orders" asp-action="Create" asp-route-id="@Model.Id">Make a new order</a> |*@
-            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-            <a asp-action="Index">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit your account</a> |
         </div>
     </section>
 </div>

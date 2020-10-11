@@ -211,7 +211,7 @@ namespace BSOS.Controllers
                     }
                 }
             }
-            return View("Error");
+            return View("EmptyShopCart");
         }
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)

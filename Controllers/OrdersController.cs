@@ -105,7 +105,8 @@ namespace BSOS.Controllers
                         _context.ProductOrder.Update(po);
                     _context.SaveChanges();
                 }
-                return RedirectToAction(nameof(Index));
+                return View("PaymentApproval");
+                //return RedirectToAction(nameof(Index));
             }
             return View("PaymentApproval",new Order() { IsShoppingCart = false }) ;
         }
