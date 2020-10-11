@@ -387,7 +387,30 @@ namespace BSOS.Controllers
         {
             return View("ShoppingCart");
         }
-    }
+
+
+        //public IActionResult RecommendProducts(int? CustomerId, int ProductId)
+        //{
+        //    if(CustomerId!=null && CustomerId!=-1)
+        //    {
+        //        int Count;
+        //        var result = (from p in _context.Products where (1 < 0) select new ObjectsResult()).ToList();//create empty result table
+        //        foreach (var pro in _context.Products.Include(po => po.ProductOrders).ThenInclude(o => o.Order))
+        //        {
+        //            Count = 0;
+        //            if (pro == null)
+        //                continue;
+        //            foreach (var po in pro.ProductOrders)
+        //            {
+        //                if (po == null)
+        //                    continue;
+        //                if (po.Product. == pro.)
+        //                    ++Count;
+        //            }
+        //            result.Add(new ObjectsResult() { Brand = pro.Brand, count = Count });
+        //        }
+        //    }
+        }
 
     public class ObjectsResult
     {
